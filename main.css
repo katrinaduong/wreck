@@ -48,3 +48,54 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+/* CODE BEGINS */
+
+/*
+    ===============================
+    Grid
+    ===============================
+*/
+
+*,
+*:before,
+*:after{
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+
+.container{
+    margin: 0 auto;
+    padding: 10px;
+    width: 80%;
+}
+
+.login-box{
+    background: white;
+    border-radius: 10px;
+}
+
+div.logo_tagline{
+    background-image:url('img/logo_tagline_black.png'); 
+    width: 100%;
+    height: auto;
+}
+
+
+
+/*
+    ===============================
+    Typography
+    ===============================
+*/
+
+body{
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    background: linear-gradient(to bottom, #11998e, #38ef7d) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+}
