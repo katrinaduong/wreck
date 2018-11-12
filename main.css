@@ -65,26 +65,23 @@ table {
           box-sizing: border-box;
 }
 
-
 .container{
     margin: 0 auto;
-    padding: 10px;
     width: 80%;
+}
+
+div.logo_symbol img{
+    max-width: 30%;
+    margin-top: 10%;
+    margin-left: auto;
+	margin-right: auto;
+	display: block;
 }
 
 .login-box{
     background: white;
     border-radius: 10px;
-}
-
-div.fields {
-    padding: 60px 8px;
-}
-
-.text_field{
-    padding: 8px;
-    width: 100%;
-    border: 
+    margin-top: 10%;
 }
 
 div.logo_tagline{
@@ -93,11 +90,62 @@ div.logo_tagline{
 
 div.logo_tagline img{
     max-width: 262px;
+    margin-top: 40px;
     margin-left: auto;
 	margin-right: auto;
 	display: block;
 }
 
+div.fields {
+    padding: 60px 20px;
+}
+
+div.fields .text_field{
+    padding: 8px;
+    width: 100%;
+    height: 40px;
+    border-color: var(--jade-green);
+    border-style: solid;
+    margin: 7px auto;
+
+    font-family: Avenir;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #4a4a4a;
+
+}
+
+div.login-buttons {
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.green-button {
+    display: inline-block;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--jade-green);
+    padding: 8px 50px;
+    font-family: Avenir;
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: var(--white);
+    width: 48%;
+}
+
+.green-button:hover {
+    background-color: var(--blue-grey);
+}
 
 
 /*
