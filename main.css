@@ -82,6 +82,7 @@ div.logo_symbol img{
     background: white;
     border-radius: 10px;
     margin-top: 10%;
+    margin-bottom: 10%;
 }
 
 div.logo_tagline{
@@ -168,7 +169,7 @@ body{
     background: linear-gradient(to bottom, #11998e, #38ef7d) no-repeat center center fixed;
     background-size: cover;
     height: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 /* Color palette */
