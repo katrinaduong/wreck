@@ -18,8 +18,8 @@
             </div>
 
             <div class="fields">
-                <input type="text" class="text_field" placeholder="Email Address">
-                <input type="text" class="text_field" placeholder="Password">
+                <input type="text" class="text_field" id="email" placeholder="Email Address">
+                <input type="text" class="text_field" id="password" placeholder="Password">
             </div>
 
             <div class="login-buttons">
@@ -27,10 +27,21 @@
                 <button class="green-button" id="login">Log In</button>
             </div>
         </section>
-        <script src="../jquery/js/jquery-1.9.0.min.js"></script>
-        <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
         <script>
-            $('#login').on('click', function() { window.location = './html/profile1.html'; });
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyBPycM_8LJpWIsBWIWW5wyc0Y9Um0o1ywM",
+            authDomain: "cs188-wreck.firebaseapp.com",
+            databaseURL: "https://cs188-wreck.firebaseio.com",
+            projectId: "cs188-wreck",
+            storageBucket: "",
+            messagingSenderId: "116015869011"
+          };
+          firebase.initializeApp(config);
         </script>
+        <script src="./jquery/js/jquery-1.9.0.min.js"></script>
+        <script src="./jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
+        <script src="./js/profile.js"></script>
     </body>
 </html>
