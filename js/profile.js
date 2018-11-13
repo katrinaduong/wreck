@@ -5,7 +5,7 @@ $( document ).ready(function() {
   $('#groupname').val("")
   $('#sign-up').click(createNewUser)
   $('#login').click(loginUser)
-  $('#continue').click(addGroup)
+  $('#continue1').click(addGroup)
 });
 
 // New User
