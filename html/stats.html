@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../css/issues.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div id="page-container">
+    <div class="header">
+      <i class="fa fa-bars w3-xxxlarge header-content" id="menu"></i>
+      <label class="header-content" id="issues-title">Stats</label>
+    </div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   
+  <!-- table in progress -->
+  <!-- 
+  need something to list exact values
+    <tr>
+      <td>Name</td>
+      <td>Paid</td> 
+    </tr>
+    <tr>
+      <td>Ayush</td>
+      <td>$9.00</td>
+    </tr>
+    etc.
+  -->
+  <table id="amounts">
+    <tbody>
+      <tr>
+        <td><div id="piechart" style="width: 900px; height: 500px;"></div></td>
+      </tr>
+      <tr> <!-- why are these overlapping -->
+        <td><div id="linechart" style="width: 900px; height: 500px;"></div></td>
+      </tr>
+    </tbody>     
+  </table>
+
+  
+  </div>
+  <script src="../jquery/js/jquery-1.9.0.min.js"></script>
+  <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
+  <script src="../js/stats.js"></script>
+</body>
+</html>
+
