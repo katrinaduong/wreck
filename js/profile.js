@@ -43,7 +43,7 @@ function loginUser() {
 
   firebase.auth().signInWithEmailAndPassword(email, password)
   .then(function() {
-    window.location = './html/profile1.html'
+    window.location = './html/issues.html'
   })
   .catch(function(error) {
     var errorCode = error.code
