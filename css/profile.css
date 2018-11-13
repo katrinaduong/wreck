@@ -1,0 +1,237 @@
+/*
+    CSS Reset - resets any existing browser styles
+    http://meyerweb.com/eric/tools/css/reset/ 
+    v2.0 | 20110126
+    License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* CODE BEGINS */
+
+/*
+    ===============================
+    Grid
+    ===============================
+*/
+
+*,
+*:before,
+*:after{
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+div.logo_tagline{
+    /* padding: 26px; */
+    margin-top: 0%;
+    min-height: 112px;
+    position: relative;
+    background: var(--jade-green);
+}
+
+div.logo_tagline img{
+    max-width: 262px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container{
+    margin: 0 auto;
+    width: 80%;
+}
+
+div.fields {
+    padding: 50px 0px;
+}
+
+#money_deposit.fields{
+    padding: 23px 0px 0px 0px;
+}
+
+#money_penalty.fields{
+    padding: 3px 0px 20px 0px;
+}
+
+div.fields p{
+  font-family: Avenir;
+  font-size: 20px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+div.fields p.money_subtext {
+  font-family: Avenir;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: oblique;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--brown-grey);
+}
+
+div.text_field_wrapper{
+    width: 100%;
+    border: 1px solid var(--jade-green);
+    margin: 7px auto;
+}
+
+div #search.text_field_wrapper img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+div.fields .text_field{
+    padding: 8px;
+    width: 100%;
+    height: 40px;
+
+    font-family: Avenir;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #4a4a4a;
+
+}
+
+div.fields #search.text_field{
+    width: 80%;
+}
+
+div.fields #money.text_field{
+    width: 90%;
+    padding: 8px 8px 8px 0;
+}
+
+button.search-button {
+    margin-top: 5px;
+    float: right;
+}
+
+div.navigation-buttons {
+    padding: 0 0 20px 0;
+}
+
+.green-button {
+    display: inline-block;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--jade-green);
+    padding: 8px 10px;
+    font-family: Avenir;
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: var(--white);
+    width: 48%;
+}
+
+div #continue.green-button {
+    margin-left: 1%;
+}
+
+div #back.green-button {
+    margin-right: 1%;
+}
+
+.green-button:hover {
+    background-color: var(--blue-grey);
+}
+
+
+/*
+    ===============================
+    Typography
+    ===============================
+*/
+
+body{
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    background: white;
+    background-size: cover;
+    height: 100%;
+    /* overflow: hidden; */
+}
+
+/* Color palette */
+
+:root {
+    --very-light-pink: #ebebeb;
+    --brown-grey: #9b9b9b;
+    --deep-orange: #d35400;
+    --jade-green: #27ae60;
+    --very-light-pink-50: rgba(235, 235, 235, 0.5);
+    --dark-grey-blue: #395067;
+    --blue-grey: #79899a;
+    --white: #ffffff;
+  }
+  
+  /* Sample text styles */
+  
+  header {
+    font-family: Roboto;
+    font-size: 24px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+  }
