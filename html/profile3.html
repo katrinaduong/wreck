@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>WRECK</title>
+        <link rel="stylesheet" href="../css/profile.css">
+    </head>
+    <body>
+        <header>
+            <div class="logo_tagline">
+                    <img src="../img/logo_tagline_white.png">
+            </div>
+        </header>
+        <section class="container">
+
+        <span class="content">
+            <div class="fields" id="money_deposit">
+                <div class="text_field_wrapper" id="search">
+                    &nbsp;&nbsp;$ <input type="text" class="text_field" id="money" placeholder="Deposit Amount">
+                </div>
+                <p class="money_subtext">Deposit amount refers to the money that each person puts in. This is the chunk of money that penalties will be subtracted from.</p>
+            </div>
+            <div class="fields" id="money_penalty">
+                <div class="text_field_wrapper" id="search">
+                    &nbsp;&nbsp;$ <input type="text" class="text_field" id="money" placeholder="Penalty Amount">
+                </div>
+                <p class="money_subtext">How hard do you want to penalize your roommates?</p>
+            </div>
+        </span>
+
+            <div class="navigation-buttons">
+                <button class="green-button" id="back">Back</button>
+                <button class="green-button" id="continue">Continue</button>
+            </div>
+        </section>
+        <script src="../jquery/js/jquery-1.9.0.min.js"></script>
+        <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
+        <script>
+            $('#back').on('click', function() { window.location = './profile2.html'; });
+            $('#continue').on('click', function() { window.location = './profile4.html'; });
+        </script>
+    </body>
+</html>
