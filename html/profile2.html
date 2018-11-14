@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>WRECK</title>
+        <link rel="stylesheet" href="../css/profile.css">
+    </head>
+    <body>
+        <header>
+            <div class="logo_tagline">
+                    <img src="../img/logo_tagline_white.png">
+            </div>
+        </header>
+        <section class="container">
+
+            <div class="fields">
+                <p>Invite Contacts</p>
+                <div class="text_field_wrapper" id="search">
+                    <input type="text" class="text_field" id="search" placeholder="Enter email id">
+                    <button class="search-button"><img src="../img/search.png"></button>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button class="green-button" id="back2">Back</button>
+                <button class="green-button" id="continue2">Continue</button>
+            </div>
+        </section>
+        <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyBPycM_8LJpWIsBWIWW5wyc0Y9Um0o1ywM",
+            authDomain: "cs188-wreck.firebaseapp.com",
+            databaseURL: "https://cs188-wreck.firebaseio.com",
+            projectId: "cs188-wreck",
+            storageBucket: "",
+            messagingSenderId: "116015869011"
+          };
+          firebase.initializeApp(config);
+        </script>
+        <script src="../jquery/js/jquery-1.9.0.min.js"></script>
+        <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
+        <script>
+            $('#back2').on('click', function() { window.location = './profile1.html'; });
+            $('#continue2').on('click', function() { window.location = './profile3.html'; });
+        </script>
+        <script src="../js/profile.js"></script>
+    </body>
+</html>
