@@ -102,6 +102,11 @@ hr {
   width: 100%;
   height: 65px;
 }
+
+.issue-button {
+  margin-top: 5px;
+}
+
 .issue-reply {
   width: 49%;
   display: inline-block;
@@ -223,7 +228,7 @@ body {
 #nevermind {
   display: inline-block;
   width: 40%;
-  height: 60px;
+  height: 100%;
   border-radius: 10px;
   background-color: var(--very-light-pink);
   font-family: Avenir;
@@ -242,7 +247,7 @@ body {
 #post {
   display: inline-block;
   width: 40%;
-  height: 60px;
+  height: 100%;
   border-radius: 10px;
   background-color: var(--very-light-pink);
   font-family: Avenir;
