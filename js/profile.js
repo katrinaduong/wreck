@@ -24,8 +24,6 @@ function createNewUser() {
 
     if (password.length < 6) {
       alert('Password must be at least 6 characters long.')
-    } else if (errorCode === 'auth/wrong-password') {
-      alert('Wrong password.')
     } else if (errorCode === 'auth/invalid-email') {
       alert('Invalid email.')
     } else if (errorCode === 'auth/email-already-in-use') {
