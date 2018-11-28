@@ -47,7 +47,21 @@ body {
   color: #000000;
 }
 
-#new-help {
+#dashboard {
+  text-align: center;
+  width: 100%;
+  font-family: Avenir;
+  font-size: 50px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  padding-top: 85px;
+  color: #000000;
+}
+
+#italic {
   font-family: Avenir;
   font-size: 40px;
   font-weight: 300;

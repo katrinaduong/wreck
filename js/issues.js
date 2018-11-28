@@ -3,6 +3,7 @@
 //   $(this).toggleClass('issue-button-clicked');
 // });
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var newWelcome = true
 
 $('#add-issue').click(function() {
   $("#new-issue-text").focus()
@@ -14,6 +15,10 @@ $('#nevermind, .close-button').click(function() {
 });
 
 $('#post').click(function() {
+  if (newWelcome == true) {
+    $('#new-welcome').toggle();
+    newWelcome = false
+  }
   var date = getCurrentTime()
   var text = $("#new-issue-text").val()
   var newPost =
