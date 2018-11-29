@@ -33,6 +33,55 @@ body {
   color: var(--white);
 }
 
+#new-welcome {
+  text-align: center;
+  width: 100%;
+  font-family: Avenir;
+  font-size: 50px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  padding-top: 85px;
+  color: #000000;
+}
+
+#dashboard {
+  text-align: center;
+  width: 100%;
+  font-family: Avenir;
+  font-size: 50px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  padding-top: 85px;
+  color: #000000;
+}
+
+#italic {
+  font-family: Avenir;
+  font-size: 40px;
+  font-weight: 300;
+  font-style: oblique;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--brown-grey);
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 20px;
+}
+
+.smile {
+  padding-left: 120px;
+  padding-right: 120px;
+  padding-top: 70px;
+}
+
 #menu {
   padding-left: 40px;
   color: #d8d8d8;
