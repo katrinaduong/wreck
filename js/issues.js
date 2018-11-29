@@ -32,7 +32,9 @@ $('#post').click(function() {
         Reply
       </div>
       <div class="issue-react-angry issue-button">
-        React 😠 <label class="angry-count"></label>
+        <button onclick="increment(this)" value="0">
+          React 😠 <label class="angry-count"></label>
+        </button>
       </div>
     </div>
   </div>`
@@ -41,6 +43,11 @@ $('#post').click(function() {
   $('#new-issue-text').val("")
   $('body').toggleClass("adding-issue")
 });
+
+function increment(react) {
+  react.value = +react.value + 1
+  react.innerText = "React 😠 (x" + react.value + ")"
+}
 
 function getCurrentTime() {
   var d = new Date()
