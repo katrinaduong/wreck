@@ -5,6 +5,7 @@
 
 $('#add-issue').click(function() {
   $("body").toggleClass("adding-issue");
+  $("new-issue-text").focus();
 });
 
 $('#nevermind, .close-button').click(function() {

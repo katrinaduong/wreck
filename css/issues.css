@@ -148,7 +148,7 @@ hr {
   margin-left: 5%;
   width: 90%;
   height: 400px;
-  top: 400px;
+  top: 300px;
   opacity: 0;
   pointer-events: none;
   padding: 20px;
@@ -207,12 +207,17 @@ body {
   height: 60%;
   font-family: Avenir;
   font-weight: 300;
-  font-style: oblique;
+  font-style: normal;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: var(--very-light-pink-50);
+  color: var(--very-light-pink);
   word-break: break-word;
+}
+
+#new-issue-text::placeholder {
+  font-style: oblique;
+  color: var(--very-light-pink-50);
 }
 
 *:focus {
