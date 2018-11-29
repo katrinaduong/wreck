@@ -6,13 +6,14 @@ var months = ["January", "February", "March", "April", "May", "June", "July", "A
 var newWelcome = true
 
 $('#add-issue').click(function() {
-  $("#new-issue-text").focus()
+  $("#new-issue-text").focus();
   $("body").toggleClass("adding-issue");
   $("new-issue-text").focus();
 });
 
 $('#nevermind, .close-button').click(function() {
   $('body').toggleClass("adding-issue");
+  $("#new-issue-text").val('');
 });
 
 $('#post').click(function() {
