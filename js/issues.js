@@ -5,13 +5,14 @@
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 $('#add-issue').click(function() {
-  $("#new-issue-text").focus()
+  $("#new-issue-text").focus();
   $("body").toggleClass("adding-issue");
   $("new-issue-text").focus();
 });
 
 $('#nevermind, .close-button').click(function() {
   $('body').toggleClass("adding-issue");
+  $("#new-issue-text").val('');
 });
 
 $("#new-issue-text").on('input',function(e){
