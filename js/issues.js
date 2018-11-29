@@ -1,4 +1,4 @@
-//
+
 // $('.issue-button').click(function(){
 //   $(this).toggleClass('issue-button-clicked');
 // });
@@ -8,6 +8,7 @@ var newWelcome = true
 $('#add-issue').click(function() {
   $("#new-issue-text").focus()
   $("body").toggleClass("adding-issue");
+  $("new-issue-text").focus();
 });
 
 $('#nevermind, .close-button').click(function() {
