@@ -1,3 +1,4 @@
+database = firebase.database();
 
 $( document ).ready(function() {
   $('#email').val("")
@@ -5,8 +6,8 @@ $( document ).ready(function() {
   $('#groupname').val("")
   $('#sign-up').click(createNewUser)
   $('#login').click(loginUser)
-  $('#create').click(addGroup)
-  $('#join').click(addUserToGroup)
+  $('#continue1').click(addGroup)
+  $('#continue3').click(sendFirebase)
 });
 
 var group_name = "Friendz"
@@ -14,7 +15,9 @@ var group_name = "Friendz"
 // New User
 function createNewUser() {
   console.log("creating new user")
-  const email = $('#email').val()
+  var email = $('#email').val();
+  var name = email.substring(0, email.lastIndexOf("@"));
+  sessionStorage.setItem("namekey", name);
   const password = $('#password').val()
 
   firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -64,12 +67,11 @@ function loginUser() {
 
 }
 
-// Add group name to firebase
+// Store group name in session
 function addGroup() {
   console.log("adding group")
-  firebase.database().ref("groups/" + $('#groupname').val()).set({
-    member: "me"
-  })
+  var group = $('#groupname').val();
+  sessionStorage.setItem("groupkey", group);
 
   window.location = './profile2.html'
 }
@@ -97,3 +99,39 @@ $('#copy-link').on ('click', function() {
   alert("Copied the text: " + copyText);
   $temp.remove();
 });
+
+//----------- stuff added by melissa ---------------
+function sendFirebase() {
+  deposit = $('#deposit').val();
+  penalty = $('#penalty').val();
+
+  var namestore = sessionStorage.getItem("namekey")
+  var groupstore = sessionStorage.getItem("groupkey");
+  // Make an object with data in it
+  var data = {
+    balance: deposit,
+    group: groupstore,
+  }
+
+  var users = database.ref('users');  
+  var user = users.child(namestore).set(data);
+
+  var groupdata = {
+    groupbalance: "",
+    penalty: penalty,
+    deposit: deposit,
+    users: { namestore },
+    posts: ""
+  }
+  var groups = database.ref('groups');
+  var group = groups.child(groupstore).set(groupdata);
+  // Reload the data for the page
+  function finished(err) {
+    if (err) {
+      console.log("ooops, something went wrong.");
+      console.log(err);
+    } else {
+      console.log('Data saved successfully');
+    }
+  }
+}

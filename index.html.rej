@@ -1,0 +1,10 @@
+diff a/index.html b/index.html	(rejected hunks)
+@@ -35,7 +35,7 @@
+             authDomain: "cs188-wreck.firebaseapp.com",
+             databaseURL: "https://cs188-wreck.firebaseio.com",
+             projectId: "cs188-wreck",
+-            storageBucket: "",
++            storageBucket: "cs188-wreck.appspot.com",
+             messagingSenderId: "116015869011"
+           };
+           firebase.initializeApp(config);
