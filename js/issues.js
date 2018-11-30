@@ -3,7 +3,6 @@
 //   $(this).toggleClass('issue-button-clicked');
 // });
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-var newWelcome = true
 
 $('#add-issue').click(function() {
   $("#new-issue-text").focus()
@@ -27,10 +26,6 @@ $("#new-issue-text").on('input',function(e){
 });
 
 $('#post').click(function() {
-  if (newWelcome == true) {
-    $('#new-welcome').toggle();
-    newWelcome = false
-  }
   var date = getCurrentTime()
   var text = $("#new-issue-text").val()
   if (text.length < 1) {
@@ -52,9 +47,15 @@ $('#post').click(function() {
       </div>
     </div>`
 
+    $('#new-welcome').hide();
     $('#issues-container').prepend(newPost)
     $('#new-issue-text').val("")
     $('body').toggleClass("adding-issue")
+
+    var firebaseRef = firebase.database().ref("posts/")
+    firebaseRef.push ({
+        post: newPost
+      })
   }
 });
 
@@ -82,4 +83,23 @@ function getCurrentTime() {
   var date = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " "
     + hours + ":" + minutes + " " + time
   return date
+}
+
+function onLoad() {
+  var firebaseRef = firebase.database().ref("posts/")
+  var issuesExist = false
+  // Recall database entries
+  firebaseRef.once("value", function(snapshot) {
+    snapshot.forEach(snap => {
+      issuesExist = true
+      $('#issues-container').prepend(snap.val().post)
+    })
+    if (issuesExist) {
+      $('#new-welcome').hide();
+    } else {
+      $('#new-welcome').show();
+    }
+  }, function(error) {
+    console.log("Error: " + error.code)
+  })
 }
