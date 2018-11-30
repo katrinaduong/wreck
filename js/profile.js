@@ -8,6 +8,8 @@ $( document ).ready(function() {
   $('#login').click(loginUser)
   $('#continue1').click(addGroup)
   $('#continue3').click(sendFirebase)
+  $('#create').click(addGroup)
+  $('#join').click(addUserToGroup)
 });
 
 var group_name = "Friendz"
