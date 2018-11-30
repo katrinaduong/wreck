@@ -5,7 +5,8 @@ $( document ).ready(function() {
   $('#groupname').val("")
   $('#sign-up').click(createNewUser)
   $('#login').click(loginUser)
-  $('#continue1').click(addGroup)
+  $('#create').click(addGroup)
+  $('#join').click(addUserToGroup)
 });
 
 var group_name = "Friendz"
@@ -71,6 +72,18 @@ function addGroup() {
   })
 
   window.location = './profile2.html'
+}
+
+// Add user to existing group
+function addUserToGroup() {
+  var user_entry = $('groupname').val();
+  if (true /* TODO: check user input against list of groups */) {
+    $('#not-group').css("visibility", "visible");
+  } else {
+    // valid group so do firebase hooking up
+    $('#not-group').css("visibility", "hidden");
+
+  }
 }
 
 $('#email').on('click', function() { window.location = 'mailto:?subject=Invitation%20to%20Join!&body=Your%20friend%20has%20invited%20you%20to%20join%20the%20roommate%20resolution%20app%20WRECK.%20Go%20to%20http://cs188wreck.herokuapp.com%20and%20join%20the%20group%20called%20' + group_name; });
