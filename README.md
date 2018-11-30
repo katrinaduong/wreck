@@ -1,5 +1,4 @@
-# WRECK
-We Resolve Every Conflict Kindly
+# WRECK: We Resolve Every Conflict Kindly
 CS 188 Project, Fall 2018
 
 WRECK is an app that helps roommates safely communicate problems to each other while incentivizing conflict resolution through monetary penalties. Resolved issues are dismissed, while unresolved issues cause transfer of money from individual balances to the apartment group balance. At the end of the month, the group balance is used towards a group outing such as dinner.
