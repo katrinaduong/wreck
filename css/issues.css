@@ -331,13 +331,12 @@ body {
 }
 
 #sidebar {
-  visibility: hidden;
+  left: -60%;
   height: 100%;
   width: 60%;
   background-color: var(--jade-green);
   position: absolute;
   top: 0px;
-  left: 0px;
 }
 
 #sidebar-header {

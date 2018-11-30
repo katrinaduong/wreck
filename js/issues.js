@@ -12,13 +12,19 @@ $('#add-issue').click(function() {
 });
 
 $('#menu').click(function() {
-  $('#sidebar').css("visibility", "visible");
+  $('#sidebar').css("left", "0");
+  $('#sidebar').css("transition", "1s");
   $('#dark-blur').css("visibility", "visible");
 });
 
 $('.close-sidebar').click(function() {
-  $('#sidebar').css("visibility", "hidden");
+  $('#sidebar').css("left", "-60%");
+  $('#sidebar').css("transition", "1s");
   $('#dark-blur').css("visibility", "hidden");
+});
+
+$('logout').click(function() {
+  // TODO: Give logout functionality here
 });
 
 $('#nevermind, .close-button').click(function() {
