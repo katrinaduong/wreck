@@ -8,6 +8,8 @@ $( document ).ready(function() {
   $('#continue1').click(addGroup)
 });
 
+var group_name = "Friendz"
+
 // New User
 function createNewUser() {
   console.log("creating new user")
@@ -69,4 +71,14 @@ function addGroup() {
   })
 
   window.location = './profile2.html'
+}
+
+function copyToClipboard() {
+  var copyText = "Your friend has invited you to join the roommate resolution app WRECK. Go to http://cs188wreck.herokuapp.com and join the group called " + group_name;
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val(copyText).select();
+  document.execCommand("copy");
+  alert("Copied the text: " + copyText);
+  $temp.remove();
 }
