@@ -11,9 +11,11 @@ $('#add-issue').click(function() {
 });
 
 $('#menu').click(function() {
+  $('#sidebar').css("visibility", "visible");
 });
 
-$('#close-menu').click(function() {
+$('.close-sidebar').click(function() {
+  $('#sidebar').css("visibility", "hidden");
 });
 
 $('#nevermind, .close-button').click(function() {

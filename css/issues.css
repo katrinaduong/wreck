@@ -313,6 +313,7 @@ body {
 
 
 #sidebar {
+  visibility: hidden;
   height: 100%;
   width: 60%;
   background-color: var(--jade-green);
