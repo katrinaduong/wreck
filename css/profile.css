@@ -165,6 +165,23 @@ div.navigation-buttons {
     padding: 0 0 20px 0;
 }
 
+.green-button-flex {
+    display: inline-block;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--jade-green);
+    padding: 8px 10px;
+    font-family: Avenir;
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: var(--white);
+}
+
 .green-button {
     display: inline-block;
     border: none;
@@ -192,6 +209,10 @@ div #back.green-button {
 }
 
 .green-button:hover {
+    background-color: var(--blue-grey);
+}
+
+.green-button-flex:hover {
     background-color: var(--blue-grey);
 }
 
