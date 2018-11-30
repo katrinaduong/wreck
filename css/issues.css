@@ -33,6 +33,14 @@ body {
   color: var(--white);
 }
 
+.hidden {
+  display: none
+}
+
+#help-text {
+  // TODO
+}
+
 #new-welcome {
   text-align: center;
   width: 100%;
@@ -156,23 +164,8 @@ hr {
   margin-top: 5px;
 }
 
-.issue-reply {
-  width: 49%;
-  display: inline-block;
-  text-align: center;
-  height: 100%;
-  font-family: Avenir;
-  font-size: 40px;
-  font-weight: 200;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--very-light-pink);
-}
-
 .issue-react-angry {
-  width: 50%;
+  width: 100%;
   display: inline-block;
   text-align: center;
   height: 100%;
