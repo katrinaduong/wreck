@@ -70,6 +70,14 @@ $('#post').click(function() {
   }
 });
 
+$('#logout').click(function() {
+  firebase.auth().signOut().then(function() {
+    window.location = '../index.html'
+	}).catch(function(error) {
+  		alert("Can not sign out, please try again");
+	});
+})
+
 function increment(react) {
   react.value = +react.value + 1
   react.innerText = "React 😠 (x" + react.value + ")"
