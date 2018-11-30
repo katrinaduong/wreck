@@ -5,7 +5,8 @@ $( document ).ready(function() {
   $('#groupname').val("")
   $('#sign-up').click(createNewUser)
   $('#login').click(loginUser)
-  $('#continue1').click(addGroup)
+  $('#create').click(addGroup)
+  $('#join').click(addUserToGroup)
 });
 
 // New User
@@ -69,4 +70,16 @@ function addGroup() {
   })
 
   window.location = './profile2.html'
+}
+
+// Add user to existing group
+function addUserToGroup() {
+  var user_entry = $('groupname').val();
+  if (true /* TODO: check user input against list of groups */) {
+    $('#not-group').css("visibility", "visible");
+  } else {
+    $('#not-group').css("visibility", "hidden");
+      // here is true so you add user to group and move on
+
+  }
 }

@@ -243,6 +243,9 @@ body{
 		color: var(--brown-grey);
 	}
 
-	#join {
-		background-color: var(--brown-grey);
+	#not-group {
+		color: red;
+		position: absolute;
+		right: 14%;
+		visibility: hidden;
 	}
