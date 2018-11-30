@@ -34,7 +34,9 @@ $('#post').click(function() {
   var date = getCurrentTime()
   var text = $("#new-issue-text").val()
   if (text.length < 1) {
-    $('#help-text').toggle();
+    if ($('#help-text').is(':hidden')) {
+      $('#help-text').toggle();
+    }
   } else {
     var newPost =
     `<div class="issue">
