@@ -10,6 +10,12 @@ $('#add-issue').click(function() {
   $("new-issue-text").focus();
 });
 
+$('#menu').click(function() {
+});
+
+$('#close-menu').click(function() {
+});
+
 $('#nevermind, .close-button').click(function() {
   $('body').toggleClass("adding-issue");
   $("#new-issue-text").val('');
