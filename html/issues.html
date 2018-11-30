@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
-    <body>
+    <body onload="onLoad()">
       <div id="page-container">
         <div class="header">
           <i class="fa fa-bars w3-xxxlarge header-content" id="menu"></i>
@@ -14,7 +14,7 @@
           <i class="fa fa-plus w3-xxxlarge header-content" id="add-issue"></i>
         </div>
 
-        <div id="new-welcome">
+        <div id="new-welcome" class="hidden">
           Welcome!
           <div>
             <img class="smile" src="../img/smile.png">
@@ -22,7 +22,7 @@
           <h1 id="italic">You can add your first issue by tapping the '+' button on the top right corner.</h1>
         </div>
 
-        <div id="dashboard" style="display: none;">
+        <div id="dashboard" class="hidden">
           No pending issues!
           <div>
             <img class="smile" src="../img/smile.png">
@@ -39,6 +39,9 @@
           <i class="fa fa-times w3-xxxlarge close-button"></i>
         </div>
         <textarea rows="5" cols="50" id="new-issue-text" type="text" name="new-issue" placeholder="Enter your message here"></textarea> <br>
+        <div>
+          <p id="help-text" class="hidden">Message cannot be empty.</p>
+        </div>
         <div id="new-issue-footer">
           <div id="nevermind">Nevermind</div>
           <div id="post">Post</div>
@@ -69,7 +72,19 @@
         </div>
         <div id="logout">Logout</div>
       </div>
-
+      <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+      <script>
+        // Initialize Firebase
+        var config = {
+          apiKey: "AIzaSyBPycM_8LJpWIsBWIWW5wyc0Y9Um0o1ywM",
+          authDomain: "cs188-wreck.firebaseapp.com",
+          databaseURL: "https://cs188-wreck.firebaseio.com",
+          projectId: "cs188-wreck",
+          storageBucket: "",
+          messagingSenderId: "116015869011"
+        };
+        firebase.initializeApp(config);
+      </script>
       <script src="../jquery/js/jquery-1.9.0.min.js"></script>
       <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
       <script src="../js/issues.js"></script>

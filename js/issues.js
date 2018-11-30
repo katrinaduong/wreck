@@ -3,7 +3,6 @@
 //   $(this).toggleClass('issue-button-clicked');
 // });
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-var newWelcome = true
 
 $('#add-issue').click(function() {
   $("#new-issue-text").focus();
@@ -32,34 +31,49 @@ $('#nevermind, .close-button').click(function() {
   $("#new-issue-text").val('');
 });
 
-$('#post').click(function() {
-  if (newWelcome == true) {
-    $('#new-welcome').toggle();
-    newWelcome = false
+$("#new-issue-text").on('input',function(e){
+  if(e.target.value === ''){
+    // Textarea has no value
+  } else {
+    // Textarea has a value
+    if (!$('#help-text').is(':hidden')) {
+      $('#help-text').toggle();
+    }
   }
+});
+
+$('#post').click(function() {
   var date = getCurrentTime()
   var text = $("#new-issue-text").val()
-  var newPost =
-  `<div class="issue">
-    <div class="issue-date">${date}</div>
-    <label class="issue-content">${text}</label>
-    <hr>
-    <div class="issue-footer">
-      <div class="issue-reply issue-button">
-        <i class="fa fa-reply"></i>
-        Reply
+  if (text.length < 1) {
+    if ($('#help-text').is(':hidden')) {
+      $('#help-text').toggle();
+    }
+  } else {
+    var newPost =
+    `<div class="issue">
+      <div class="issue-date">${date}</div>
+      <label class="issue-content">${text}</label>
+      <hr>
+      <div class="issue-footer">
+        <div class="issue-react-angry issue-button">
+          <button onclick="increment(this)" value="0">
+            React 😠 <label class="angry-count"></label>
+          </button>
+        </div>
       </div>
-      <div class="issue-react-angry issue-button">
-        <button onclick="increment(this)" value="0">
-          React 😠 <label class="angry-count"></label>
-        </button>
-      </div>
-    </div>
-  </div>`
+    </div>`
 
-  $('#issues-container').prepend(newPost)
-  $('#new-issue-text').val("")
-  $('body').toggleClass("adding-issue")
+    $('#new-welcome').hide();
+    $('#issues-container').prepend(newPost)
+    $('#new-issue-text').val("")
+    $('body').toggleClass("adding-issue")
+
+    var firebaseRef = firebase.database().ref("posts/")
+    firebaseRef.push ({
+        post: newPost
+      })
+  }
 });
 
 function increment(react) {
@@ -86,4 +100,23 @@ function getCurrentTime() {
   var date = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " "
     + hours + ":" + minutes + " " + time
   return date
+}
+
+function onLoad() {
+  var firebaseRef = firebase.database().ref("posts/")
+  var issuesExist = false
+  // Recall database entries
+  firebaseRef.once("value", function(snapshot) {
+    snapshot.forEach(snap => {
+      issuesExist = true
+      $('#issues-container').prepend(snap.val().post)
+    })
+    if (issuesExist) {
+      $('#new-welcome').hide();
+    } else {
+      $('#new-welcome').show();
+    }
+  }, function(error) {
+    console.log("Error: " + error.code)
+  })
 }
