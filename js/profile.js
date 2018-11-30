@@ -80,8 +80,8 @@ function addUserToGroup() {
   if (true /* TODO: check user input against list of groups */) {
     $('#not-group').css("visibility", "visible");
   } else {
-    // valid group so do firebase hooking up
-    $('#not-group').css("visibility", "hidden");
+    // TODO: valid group so do firebase hooking up to add this user to that group
+    $('#not-group').css("visibility", "hidden"); // hide error message we have a valid group
 
   }
 }
