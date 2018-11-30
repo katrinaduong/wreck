@@ -13,10 +13,12 @@ $('#add-issue').click(function() {
 
 $('#menu').click(function() {
   $('#sidebar').css("visibility", "visible");
+  $('#dark-blur').css("visibility", "visible");
 });
 
 $('.close-sidebar').click(function() {
   $('#sidebar').css("visibility", "hidden");
+  $('#dark-blur').css("visibility", "hidden");
 });
 
 $('#nevermind, .close-button').click(function() {
