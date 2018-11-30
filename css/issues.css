@@ -352,6 +352,7 @@ body {
 
 #user-status {
   margin-left: 45px;
+  margin-right: 45px;
   margin-top: 60px;
   font-family: Avenir;
   color: var(--white);
@@ -374,6 +375,11 @@ body {
 .balance-value {
   font-size: 120px;
   font-weight: 500;
+}
+
+#penalty {
+  border-top-style: solid;
+  border-top-width: .5px;
 }
 
 #logout {
