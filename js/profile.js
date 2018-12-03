@@ -15,7 +15,8 @@ $( document ).ready(function() {
   $('#continue3').click(sendFirebase)
   $('#create').click(addGroup)
   $('#join').click(addUserToGroup)
-  $('#continue4').click(updateData)
+  $('#continue3').click(updateData)
+  $('#join').click(updateData)
 
 /*
 console.log('fetch firebase groups');
@@ -155,7 +156,7 @@ function addUserToGroup() {
 	  sessionStorage.setItem("depositkey", dsnapshot.val());
 	  window.group_name = user_entry;
 	  sessionStorage.setItem("groupkey", user_entry);
-	  window.location = './profile4.html'
+	  window.location = './issues.html'
 	  console.log("setting html");
 	 // $('#conf-group-name').val() = window.group_name;
 	 console.log(document.getElementById("conf-group-name").innerHTML);
