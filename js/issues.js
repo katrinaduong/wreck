@@ -3,6 +3,9 @@
 //   $(this).toggleClass('issue-button-clicked');
 // });
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var personal_balance = 20.00
+var group_balance = 0.00
+var penalty_amount = 5.00
 
 $('#add-issue').click(function() {
   $("#new-issue-text").focus();
@@ -14,6 +17,9 @@ $('#menu').click(function() {
   $('#sidebar').css("left", "0");
   $('#sidebar').css("transition", "1s");
   $('#dark-blur').css("visibility", "visible");
+  $('#group-balance').text("$" + parseFloat(group_balance).toFixed(2));
+  $('#personal-balance').text("$" + parseFloat(personal_balance).toFixed(2));
+  $('#penalty-balance').text("$" + parseFloat(penalty_amount).toFixed(2));
 });
 
 $('.close-sidebar').click(function() {
@@ -87,6 +93,8 @@ $('#logout').click(function() {
 function increment(react) {
   react.value = +react.value + 1
   react.innerText = "React 😠 (x" + react.value + ")"
+  group_balance = group_balance + penalty_amount
+  personal_balance = personal_balance - penalty_amount
 }
 
 function getCurrentTime() {

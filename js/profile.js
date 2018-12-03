@@ -76,18 +76,19 @@ function addGroup() {
 
 // Add user to existing group
 function addUserToGroup() {
-  var user_entry = $('groupname').val();
-  if (true /* TODO: check user input against list of groups */) {
-    $('#not-group').css("visibility", "visible");
-  } else {
-    // TODO: valid group so do firebase hooking up to add this user to that group
-    $('#not-group').css("visibility", "hidden"); // hide error message we have a valid group
+  window.location = './profile4_alt.html'
+  // var user_entry = $('groupname').val();
+  // if (true /* TODO: check user input against list of groups */) {
+  //   $('#not-group').css("visibility", "visible");
+  // } else {
+  //   // TODO: valid group so do firebase hooking up to add this user to that group
+  //   $('#not-group').css("visibility", "hidden"); // hide error message we have a valid group
 
-  }
+  // }
 }
 
-$('#email').on('click', function() { window.location = 'mailto:?subject=Invitation%20to%20Join!&body=Your%20friend%20has%20invited%20you%20to%20join%20the%20roommate%20resolution%20app%20WRECK.%20Go%20to%20http://cs188wreck.herokuapp.com%20and%20join%20the%20group%20called%20' + group_name; });
-$('#sms').on('click', function() { window.location = 'sms:?body=Your friend has invited you to join the roommate resolution app WRECK. Go to http://cs188wreck.herokuapp.com and join the group called ' + group_name; });
+$('#email-link').on('click', function() { window.location = 'mailto:?subject=Invitation%20to%20Join!&body=Your%20friend%20has%20invited%20you%20to%20join%20the%20roommate%20resolution%20app%20WRECK.%20Go%20to%20http://cs188wreck.herokuapp.com%20and%20join%20the%20group%20called%20' + group_name; });
+$('#sms-link').on('click', function() { window.location = 'sms:?body=Your friend has invited you to join the roommate resolution app WRECK. Go to http://cs188wreck.herokuapp.com and join the group called ' + group_name; });
 $('#copy-link').on ('click', function() {
   var copyText = "Your friend has invited you to join the roommate resolution app WRECK. Go to http://cs188wreck.herokuapp.com and join the group called " + group_name;
   var $temp = $("<input>");
