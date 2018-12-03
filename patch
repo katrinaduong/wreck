@@ -1,0 +1,113 @@
+diff --git a/html/profile3.html b/html/profile3.html
+index 84d1364963e548f32bdbcf68650249bc780843cb..bf2063614a060c9012b1dce202e4f992aa205b9b 100644
+--- a/html/profile3.html
++++ b/html/profile3.html
+@@ -17,13 +17,13 @@
+         <span class="content">
+             <div class="fields" id="money_deposit">
+                 <div class="text_field_wrapper" id="search">
+-                    &nbsp;&nbsp;$ <input type="text" class="text_field" id="money" placeholder="Deposit Amount">
++                    &nbsp;&nbsp;$ <input type="text" class="text_field" id="deposit" placeholder="Deposit Amount">
+                 </div>
+                 <p class="money_subtext">Deposit amount refers to the money that each person puts in. This is the chunk of money that penalties will be subtracted from.</p>
+             </div>
+             <div class="fields" id="money_penalty">
+                 <div class="text_field_wrapper" id="search">
+-                    &nbsp;&nbsp;$ <input type="text" class="text_field" id="money" placeholder="Penalty Amount">
++                    &nbsp;&nbsp;$ <input type="text" class="text_field" id="penalty" placeholder="Penalty Amount">
+                 </div>
+                 <p class="money_subtext">How hard do you want to penalize your roommates?</p>
+             </div>
+diff --git a/index.html b/index.html
+index c5d920438844f2e7ca46ccf3667b7f2790566af9..7c8a7c6b3853b8c182ef8ba3aeb6be341a1ece07 100644
+--- a/index.html
++++ b/index.html
+@@ -35,7 +35,7 @@
+             authDomain: "cs188-wreck.firebaseapp.com",
+             databaseURL: "https://cs188-wreck.firebaseio.com",
+             projectId: "cs188-wreck",
+-            storageBucket: "",
++            storageBucket: "cs188-wreck.appspot.com",
+             messagingSenderId: "116015869011"
+           };
+           firebase.initializeApp(config);
+diff --git a/js/profile.js b/js/profile.js
+index d7e6474453978550631314794622fe036e2d7d59..1135a37d9fbbb9e4f1a4ed14dc5b4284b0b34179 100644
+--- a/js/profile.js
++++ b/js/profile.js
+@@ -1,3 +1,4 @@
++database = firebase.database();
+ 
+ $( document ).ready(function() {
+   $('#email').val("")
+@@ -6,12 +7,15 @@ $( document ).ready(function() {
+   $('#sign-up').click(createNewUser)
+   $('#login').click(loginUser)
+   $('#continue1').click(addGroup)
++  $('#continue3').click(sendFirebase)
+ });
+ 
+ // New User
+ function createNewUser() {
+   console.log("creating new user")
+-  const email = $('#email').val()
++  var email = $('#email').val();
++  var name = email.substring(0, email.lastIndexOf("@"));
++  sessionStorage.setItem("namekey", name);
+   const password = $('#password').val()
+ 
+   firebase.auth().createUserWithEmailAndPassword(email, password)
+@@ -63,12 +67,48 @@ function loginUser() {
+ 
+ }
+ 
+-// Add group name to firebase
++// Store group name in session
+ function addGroup() {
+   console.log("adding group")
+-  firebase.database().ref("groups/" + $('#groupname').val()).set({
+-    member: "me"
+-  })
++  var group = $('#groupname').val();
++  sessionStorage.setItem("groupkey", group);
+ 
+   window.location = './profile2.html'
+ }
++
++
++//----------- stuff added by melissa ---------------
++function sendFirebase() {
++  deposit = $('#deposit').val();
++  penalty = $('#penalty').val();
++
++  var namestore = sessionStorage.getItem("namekey")
++  var groupstore = sessionStorage.getItem("groupkey");
++  // Make an object with data in it
++  var data = {
++    balance: deposit,
++    group: groupstore,
++  }
++
++  var users = database.ref('users');  
++  var user = users.child(namestore).set(data);
++
++  var groupdata = {
++    groupbalance: "",
++    penalty: penalty,
++    deposit: deposit,
++    users: { namestore },
++    posts: ""
++  }
++  var groups = database.ref('groups');
++  var group = groups.child(groupstore).set(groupdata);
++  // Reload the data for the page
++  function finished(err) {
++    if (err) {
++      console.log("ooops, something went wrong.");
++      console.log(err);
++    } else {
++      console.log('Data saved successfully');
++    }
++  }
++}
+\ No newline at end of file
