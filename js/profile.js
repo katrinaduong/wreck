@@ -1,5 +1,5 @@
 database = firebase.database();
-var groups = ['Friendz'];
+var groups = [''];
 var deposit = null;
 var penalty = null;
 var group_name = "Friendz"
@@ -15,18 +15,32 @@ $( document ).ready(function() {
   $('#continue3').click(sendFirebase)
   $('#create').click(addGroup)
   $('#join').click(addUserToGroup)
+  $('#continue4').click(updateData)
 
+/*
+console.log('fetch firebase groups');
+	var ref = firebase.database().ref('/groupnames/');
+	ref.on('value', function(function(groupsnapshot) {
+		groupsnapshot.forEach(function (snapshot)){
+			var gname = snapshot.val();
+			console.log(gname);
+			window.groups.push(gname);
+		}
+	});
+	*/
   //load groupnames that might be in firebase
 	console.log('fetch firebase groups');
 	var ref = firebase.database().ref('/groupnames/');
-	ref.once("value", function(snapshot) {
+	ref.on("value", function(snapshot) {
 		for (var key in snapshot.val()) {
-			groups.push(snapshot.val()[key]);        
+			//TODO: Why aren't all group names getting retrieved?
+			console.log(snapshot.val()[key]);
+			window.groups.push(snapshot.val()[key]);        
 		}
 	}, function (error) {
 		console.log("error");
 	});
-	
+
 	//confirmation page
 	var groupstore = sessionStorage.getItem("groupkey");
    	var depositstore = sessionStorage.getItem("depositkey");
@@ -35,7 +49,7 @@ $( document ).ready(function() {
  
     //if(groupstore != undefined && depositstore != undefined && penaltystore != undefined) {
     if (window.group_name != null && window.deposit != null && window.penalty != null) {
-    	console.log("in window.data_loaded");
+    	console.log("loading group/deposit/penalty");
     	document.getElementById("conf-group-name").innerHTML = window.group_name;
   	  	document.getElementById("conf-deposit").innerHTML = window.deposit;
       	document.getElementById("conf-penalty").innerHTML = window.penalty;
@@ -210,7 +224,7 @@ $('#copy-link').on ('click', function() {
   $temp.remove();
 });
 
-//----------- stuff added by melissa ---------------
+//create a new group and send all data to firebase
 function sendFirebase() {
 	console.log("sending to firebase");
   window.deposit = $('#deposit').val();
@@ -245,4 +259,15 @@ function sendFirebase() {
       console.log('Data saved successfully');
     }
   }
+}
+
+function updateData() {
+	//TODO: update group balance, personal balance, and penalty
+	var num_roommates = 4;	//need to count roommates
+
+    if (window.deposit != null && window.penalty != null) {
+	  	document.getElementById("group-balance").innerHTML = window.deposit*num_roommates;
+	    document.getElementById("personal-balance").innerHTML = window.deposit;	//need to make this subtract penalties
+	    document.getElementById("penalty-balance").innerHTML = window.penalty;
+	}
 }
