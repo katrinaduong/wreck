@@ -35,7 +35,7 @@ console.log('fetch firebase groups');
 		for (var key in snapshot.val()) {
 			//TODO: Why aren't all group names getting retrieved?
 			console.log(snapshot.val()[key]);
-			window.groups.push(snapshot.val()[key]);        
+			window.groups.push(snapshot.val()[key]);
 		}
 	}, function (error) {
 		console.log("error");
@@ -46,7 +46,7 @@ console.log('fetch firebase groups');
    	var depositstore = sessionStorage.getItem("depositkey");
    	var penaltystore = sessionStorage.getItem("penaltykey");
  	//console.log(groupstore != undefined && depositstore != undefined && penaltystore != undefined);
- 
+
     //if(groupstore != undefined && depositstore != undefined && penaltystore != undefined) {
     if (window.group_name != null && window.deposit != null && window.penalty != null) {
     	console.log("loading group/deposit/penalty");
@@ -55,7 +55,7 @@ console.log('fetch firebase groups');
       	document.getElementById("conf-penalty").innerHTML = window.penalty;
     }
 
-}); 
+});
 
 // New User
 function createNewUser() {
@@ -117,7 +117,7 @@ function addGroup() {
   console.log("adding group")
   var group = $('#groupname').val();
   sessionStorage.setItem("groupkey", group);
-  var groupnames = database.ref('groupnames');  
+  var groupnames = database.ref('groupnames');
   var groupname = groupnames.set({name: group});
   window.location = './profile2.html'
 }
@@ -140,7 +140,7 @@ function addUserToGroup() {
 
     //add user { group: __ }
   var namestore = sessionStorage.getItem("namekey")
-  var users = database.ref('users');  
+  var users = database.ref('users');
   var user = users.child(namestore).set({group: user_entry});
   //load confirmation page
   var penaltyRef = firebase.database().ref('/groups/' + user_entry + '/penalty');
@@ -171,7 +171,7 @@ function addUserToGroup() {
    var depositstore = sessionStorage.getItem("depositkey");
    var penaltystore = sessionStorage.getItem("penaltykey");
  	console.log(groupstore != undefined && depositstore != undefined && penaltystore != undefined);
- 
+
     if(groupstore != undefined && depositstore != undefined && penaltystore != undefined) {
     	console.log("in window.data_loaded");
     	document.getElementById("conf-group-name").innerHTML = window.group_name;
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
    var depositstore = sessionStorage.getItem("depositkey");
    var penaltystore = sessionStorage.getItem("penaltykey");
  	console.log(groupstore != undefined && depositstore != undefined && penaltystore != undefined);
- 
+
     if(groupstore != undefined && depositstore != undefined && penaltystore != undefined) {
     	console.log("in window.data_loaded");
     	document.getElementById("conf-group-name").innerHTML = window.group_name;
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }, false);
 */
 //autocomplete
-$(function() {	
+$(function() {
 	/*for (i = 0; i < count; i++) {
 		groups.push(window.pairs[i]);
 	}*/
@@ -212,8 +212,8 @@ $(function() {
 	});
 });
 
-$('#email-button').on('click', function() { window.location = 'mailto:?subject=Invitation%20to%20Join!&body=Your%20friend%20has%20invited%20you%20to%20join%20the%20roommate%20resolution%20app%20WRECK.%20Go%20to%20http://cs188wreck.herokuapp.com%20and%20join%20the%20group%20called%20' + group_name; });
-$('#sms').on('click', function() { window.location = 'sms:?body=Your friend has invited you to join the roommate resolution app WRECK. Go to http://cs188wreck.herokuapp.com and join the group called ' + group_name; });
+$('#email-link').on('click', function() { window.location = 'mailto:?subject=Invitation%20to%20Join!&body=Your%20friend%20has%20invited%20you%20to%20join%20the%20roommate%20resolution%20app%20WRECK.%20Go%20to%20http://cs188wreck.herokuapp.com%20and%20join%20the%20group%20called%20' + group_name; });
+$('#sms-link').on('click', function() { window.location = 'sms:?body=Your friend has invited you to join the roommate resolution app WRECK. Go to http://cs188wreck.herokuapp.com and join the group called ' + group_name; });
 $('#copy-link').on ('click', function() {
   var copyText = "Your friend has invited you to join the roommate resolution app WRECK. Go to http://cs188wreck.herokuapp.com and join the group called " + group_name;
   var $temp = $("<input>");
@@ -238,7 +238,7 @@ function sendFirebase() {
     group: groupstore,
   }
 
-  var users = database.ref('users');  
+  var users = database.ref('users');
   var user = users.child(namestore).set(data);
 
   var groupdata = {
