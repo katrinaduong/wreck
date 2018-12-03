@@ -1,9 +1,9 @@
 database = firebase.database();
 var groups = ['Friendz'];
-var deposit = 20;
-var penalty = 5;
-var loading = 1;
-var showedConfirm = false;
+var deposit = null;
+var penalty = null;
+var group_name = "Friendz"
+var data_loaded = false;
 
 $( document ).ready(function() {
   $('#email').val("")
@@ -26,43 +26,22 @@ $( document ).ready(function() {
 	}, function (error) {
 		console.log("error");
 	});
+	
+	//confirmation page
+	var groupstore = sessionStorage.getItem("groupkey");
+   	var depositstore = sessionStorage.getItem("depositkey");
+   	var penaltystore = sessionStorage.getItem("penaltykey");
+ 	//console.log(groupstore != undefined && depositstore != undefined && penaltystore != undefined);
+ 
+    //if(groupstore != undefined && depositstore != undefined && penaltystore != undefined) {
+    if (window.group_name != null && window.deposit != null && window.penalty != null) {
+    	console.log("in window.data_loaded");
+    	document.getElementById("conf-group-name").innerHTML = window.group_name;
+  	  	document.getElementById("conf-deposit").innerHTML = window.deposit;
+      	document.getElementById("conf-penalty").innerHTML = window.penalty;
+    }
 
-	//load groupdata
-
-  var groupstore = sessionStorage.getItem("groupkey");
-	var ref2 = firebase.database().ref('/groups/');
-  	ref2.once('value', function(confirmSnapshot) {
-  		/*
-    	for (var key in confirmSnapshot.val()) {
-			console.log(confirmSnapshot.val()[key]);   
- 			 var id=confirmSnapshot.val()[key].id;
-  			console.log(id);     
-		}*/
-		confirmSnapshot.forEach(function(childSnapshot) {
-	   		 var childKey = childSnapshot.key;
-	   		 if (childKey == groupstore){
-	    		for (var key in childSnapshot.val()) {
-	    			if (key == "penalty")
-	    				window.penalty = childSnapshot.val()[key];
-	    			if (key == "deposit")
-	    				window.deposit = childSnapshot.val()[key];
-	    		//console.log(key);
-				//console.log(childSnapshot.val()[key]);   
-	 			}
-	 			if (showedConfirm){
-	 				var groupstore = sessionStorage.getItem("groupkey");
-	 				document.getElementById("conf-group-name").innerHTML = groupstore;
-			    	document.getElementById("deposit-amount").innerHTML = window.deposit;
-			   	    document.getElementById("penalty-amount").innerHTML = window.penalty;
-			    	showConfirm();
-	 			}
- 			}
-		}, function (error) {
-		console.log("error");
-		});
-	});
 }); 
-var group_name = "Friendz"
 
 // New User
 function createNewUser() {
@@ -149,11 +128,66 @@ function addUserToGroup() {
   var namestore = sessionStorage.getItem("namekey")
   var users = database.ref('users');  
   var user = users.child(namestore).set({group: user_entry});
-  showedConfirm = true;
-  //load confirmation page?
-  }
-}
+  //load confirmation page
+  var penaltyRef = firebase.database().ref('/groups/' + user_entry + '/penalty');
+  penaltyRef.on('value', function(snapshot) {
+	console.log("snapshot.val()\n" + snapshot.val());
+	window.penalty = snapshot.val();
+	sessionStorage.setItem("penaltykey", snapshot.val());
+	var depositRef = firebase.database().ref('/groups/' + user_entry + '/deposit');
+  	depositRef.on('value', function(dsnapshot) {
+	  console.log("dsnapshot.val()\n" + dsnapshot.val());
+	  window.deposit = dsnapshot.val();
+	  sessionStorage.setItem("depositkey", dsnapshot.val());
+	  window.group_name = user_entry;
+	  sessionStorage.setItem("groupkey", user_entry);
+	  window.location = './profile4.html'
+	  console.log("setting html");
+	 // $('#conf-group-name').val() = window.group_name;
+	 console.log(document.getElementById("conf-group-name").innerHTML);
+	 console.log(window.group_name);
+    	/*document.getElementById("conf-group-name").innerHTML = window.group_name;
+  	  	document.getElementById("conf-deposit").innerHTML = window.deposit;
+      	document.getElementById("conf-penalty").innerHTML = window.penalty;
+    */
+	 /* document.addEventListener('DOMContentLoaded', function() {
+   // your code here
+   console.log("in addEventListener")
+   var groupstore = sessionStorage.getItem("groupkey");
+   var depositstore = sessionStorage.getItem("depositkey");
+   var penaltystore = sessionStorage.getItem("penaltykey");
+ 	console.log(groupstore != undefined && depositstore != undefined && penaltystore != undefined);
+ 
+    if(groupstore != undefined && depositstore != undefined && penaltystore != undefined) {
+    	console.log("in window.data_loaded");
+    	document.getElementById("conf-group-name").innerHTML = window.group_name;
+  	  	document.getElementById("conf-deposit").innerHTML = window.deposit;
+      	document.getElementById("conf-penalty").innerHTML = window.penalty;
+    }
+}, false);*/
 
+    });
+  });
+}
+}
+/*
+document.addEventListener('DOMContentLoaded', function() {
+   // your code here
+   console.log("in addEventListener")
+   var groupstore = sessionStorage.getItem("groupkey");
+   var depositstore = sessionStorage.getItem("depositkey");
+   var penaltystore = sessionStorage.getItem("penaltykey");
+ 	console.log(groupstore != undefined && depositstore != undefined && penaltystore != undefined);
+ 
+    if(groupstore != undefined && depositstore != undefined && penaltystore != undefined) {
+    	console.log("in window.data_loaded");
+    	document.getElementById("conf-group-name").innerHTML = window.group_name;
+  	  	document.getElementById("conf-deposit").innerHTML = window.deposit;
+      	document.getElementById("conf-penalty").innerHTML = window.penalty;
+    }
+    window.data_loaded = false;
+}, false);
+*/
 //autocomplete
 $(function() {	
 	/*for (i = 0; i < count; i++) {
@@ -193,10 +227,6 @@ function sendFirebase() {
   var users = database.ref('users');  
   var user = users.child(namestore).set(data);
 
-    //add group { ...users: { user... } }
-   /* var groups = database.ref('groups');
-    var group1 = groups.child(user_entry).set({users: {namestore}})
-*/
   var groupdata = {
     groupbalance: "",
     penalty: window.penalty,
@@ -215,20 +245,4 @@ function sendFirebase() {
       console.log('Data saved successfully');
     }
   }
-}
-
-function showConfirm() {
-	var groupstore = sessionStorage.getItem("groupkey");
- console.log("in showConfirm")
-  //display confirmation data on profile4
-  
-  window.location = './profile4.html'
-  //groupname, members, deposit, penalty amount
-  document.getElementById("conf-group-name").innerHTML = groupstore;
-  document.getElementById("deposit-amount").innerHTML = window.deposit;
-  document.getElementById("penalty-amount").innerHTML = window.penalty;
-  
-  console.log("out showConfirm")
-
-
 }
