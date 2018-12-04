@@ -119,7 +119,8 @@ function addGroup() {
   var group = $('#groupname').val();
   sessionStorage.setItem("groupkey", group);
   var groupnames = database.ref('groupnames');
-  var groupname = groupnames.set({name: group});
+  //var groupname = groupnames.set({name: group});
+  var groupname = groupnames.child(group).set(group);
   window.location = './profile2.html'
 }
 
