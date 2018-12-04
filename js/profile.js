@@ -134,7 +134,7 @@ function addUserToGroup() {
     //get deposit for user balance and to update groupbalance
     var depositRef = firebase.database().ref('/groups/' + user_entry +'/deposit');
     depositRef.on('value', function(snapshot) {
-    	console.log("deposit\n" + snapshot.val());
+    	console.log("1. deposit\n" + snapshot.val());
     	//sessionStorage.setItem("depositkey", snapshot.val());
     	//console.log(sessionStorage.getItem("depositkey"));
     	depositstore = snapshot.val();
@@ -150,7 +150,7 @@ function addUserToGroup() {
 	    }
 	    var users = database.ref('users');
 	    var user = users.child(usernamestore).set(data);
-	    console.log("user "+usernamestore+" added")
+	    console.log("2. user "+usernamestore+" added")
 
 	     //change group balance
 	     //groups
@@ -158,9 +158,10 @@ function addUserToGroup() {
 	     //		groupbalance: groupbalance + depositstore
 	     var groupbalRef = firebase.database().ref('/groups/' + user_entry + '/groupbalance');
 	     groupbalRef.once('value', function(snapshot) {
-	     	console.log("groupbalance: " + snapshot.val());
-	     	console.log("depositstore: " + depositstore);
+	     	console.log("3. groupbalance: " + snapshot.val());
+	     	console.log("4. depositstore: " + depositstore);
 	     	var groupbal = groupbalRef.set(parseFloat(snapshot.val())+parseFloat(depositstore));
+	     	window.location = './issues.html';	//this needs to be here or else the page switches before the data is stored in firebase D':
 	     }, function (error) {
 	     	console.log("error");
 	     });
@@ -176,7 +177,7 @@ function addUserToGroup() {
      //			usernamestore
      var userRef = firebase.database().ref('/groups/' + user_entry + '/users/');
      userRef.on('value', function(snapshot) {
-     	console.log("users\n" + snapshot.val());
+     	console.log("5. users\n" + snapshot.val());
      	var user = userRef.child(usernamestore).set(usernamestore);
      }, function (error) {
      	console.log("error");
