@@ -1,4 +1,5 @@
 
+var usernames = [''];
 // $('.issue-button').click(function(){
 //   $(this).toggleClass('issue-button-clicked');
 // });
@@ -7,10 +8,42 @@ var personal_balance = 20.00
 var group_balance = 0.00
 var penalty_amount = 5.00
 
+
+$( document ).ready(function() {
+
+  //confirmation page
+	var group = sessionStorage.getItem("groupkey");
+  var name = sessionStorage.getItem("namekey");
+	var deposit = sessionStorage.getItem("depositkey");
+	var penalty = sessionStorage.getItem("penaltykey");
+  console.log(group + " " + name + " " + deposit + " " + penalty)
+
+  // Cache usernames
+  var ref = firebase.database().ref('/groups/' + group + '/users');
+  ref.on("value", function(snapshot) {
+  	for (var key in snapshot.val()) {
+  		console.log(snapshot.val()[key]);
+  		window.usernames.push(snapshot.val()[key]);
+  	}
+  }, function (error) {
+  	console.log("error");
+  });
+
+  $('#issues-title').html(group + '\'s Issues ')
+
+});
+
 $('#add-issue').click(function() {
   $("#new-issue-text").focus();
   $("body").toggleClass("adding-issue");
   $("new-issue-text").focus();
+});
+
+// autocomplete
+$(function() {
+	$("#roommate-tag").autocomplete({
+		source: usernames, minLength: 1
+	});
 });
 
 $('#menu').click(function() {
@@ -50,6 +83,7 @@ $("#new-issue-text").on('input',function(e){
 
 $('#post').click(function() {
   var date = getCurrentTime()
+  var tag = $('#roommate-tag').val()
   var text = $("#new-issue-text").val()
   if (text.length < 1) {
     if ($('#help-text').is(':hidden')) {
@@ -59,6 +93,7 @@ $('#post').click(function() {
     var newPost =
     `<div class="issue">
       <div class="issue-date">${date}</div>
+      <div> ${tag} </div>
       <label class="issue-content">${text}</label>
       <hr>
       <div class="issue-footer">
@@ -75,7 +110,8 @@ $('#post').click(function() {
     $('#new-issue-text').val("")
     $('body').toggleClass("adding-issue")
 
-    var firebaseRef = firebase.database().ref("posts/")
+    var group = sessionStorage.getItem("groupkey");
+    var firebaseRef = firebase.database().ref('/groups/' + group + '/posts')
     firebaseRef.push ({
         post: newPost
       })
@@ -119,7 +155,8 @@ function getCurrentTime() {
 }
 
 function onLoad() {
-  var firebaseRef = firebase.database().ref("posts/")
+  var group = sessionStorage.getItem("groupkey");
+  var firebaseRef = firebase.database().ref('/groups/' + group + '/posts/')
   var issuesExist = false
   // Recall database entries
   firebaseRef.once("value", function(snapshot) {

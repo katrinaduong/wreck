@@ -6,10 +6,14 @@ var group_name = "Friendz"
 var data_loaded = false;
 
 $( document ).ready(function() {
+	$('#username').val("")
 	$('#email').val("")
 	$('#password').val("")
+	$('#password-confirm').val("")
 	$('#groupname').val("")
+	$('#sign-up-start').click(navigateSignup)
 	$('#sign-up').click(createNewUser)
+	$('#login-start').click(navigateLogin)
 	$('#login').click(loginUser)
 	$('#continue1').click(addGroup)
 	$('#continue3').click(sendFirebaseGroup)
@@ -43,34 +47,47 @@ $( document ).ready(function() {
     		document.getElementById("conf-penalty").innerHTML = window.penalty;
     	}
 
-    });
+});
+
+function navigateSignup() {
+	window.location = './html/signup.html'
+}
+
+function navigateLogin() {
+	window.location = './html/login.html'
+}
 
 // New User
 function createNewUser() {
 	console.log("creating new user")
 	var email = $('#email').val();
-	var name = email.substring(0, email.lastIndexOf("@"));
+	//var name = email.substring(0, email.lastIndexOf("@"));
+	var name = $('#username').val();
 	sessionStorage.setItem("namekey", name);
 	const password = $('#password').val()
+	const passwordConfirm = $('#password-confirm').val()
+	if (password !== passwordConfirm) {
+		alert('Passwords do not match!')
+	} else {
+		firebase.auth().createUserWithEmailAndPassword(email, password)
+		.then(function() {
+			window.location = '../html/profile1.html'
+		})
+		.catch(function(error) {
+			var errorCode = error.code
+			var errorMessage = error.message
 
-	firebase.auth().createUserWithEmailAndPassword(email, password)
-	.then(function() {
-		window.location = './html/profile1.html'
-	})
-	.catch(function(error) {
-		var errorCode = error.code
-		var errorMessage = error.message
-
-		if (password.length < 6) {
-			alert('Password must be at least 6 characters long.')
-		} else if (errorCode === 'auth/invalid-email') {
-			alert('Invalid email.')
-		} else if (errorCode === 'auth/email-already-in-use') {
-			alert('The email address is already in use by another account.')
-		} else {
-			alert(error.message)
-		}
-	});
+			if (password.length < 6) {
+				alert('Password must be at least 6 characters long.')
+			} else if (errorCode === 'auth/invalid-email') {
+				alert('Invalid email.')
+			} else if (errorCode === 'auth/email-already-in-use') {
+				alert('The email address is already in use by another account.')
+			} else {
+				alert(error.message)
+			}
+		});
+	}
 }
 
 // Login Existing User
@@ -80,7 +97,7 @@ function loginUser() {
 
 	firebase.auth().signInWithEmailAndPassword(email, password)
 	.then(function() {
-		window.location = './html/issues.html'
+		window.location = '../html/issues.html'
 	})
 	.catch(function(error) {
 		var errorCode = error.code
@@ -125,7 +142,7 @@ function addUserToGroup() {
   } else {
     // TODO: valid group so do firebase hooking up to add this user to that group
     $('#not-group').css("visibility", "hidden"); // hide error message we have a valid group
-    
+
     console.log("joining valid group")
     //get username
     var usernamestore = sessionStorage.getItem("namekey");
@@ -161,7 +178,7 @@ function addUserToGroup() {
 	     	console.log("3. groupbalance: " + snapshot.val());
 	     	console.log("4. depositstore: " + depositstore);
 	     	var groupbal = groupbalRef.set(parseFloat(snapshot.val())+parseFloat(depositstore));
-	     	window.location = './issues.html';	//this needs to be here or else the page switches before the data is stored in firebase D':
+	     	//window.location = './issues.html';	//this needs to be here or else the page switches before the data is stored in firebase D':
 	     }, function (error) {
 	     	console.log("error");
 	     });
