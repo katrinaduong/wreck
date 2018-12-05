@@ -178,7 +178,7 @@ function addUserToGroup() {
 	     	console.log("3. groupbalance: " + snapshot.val());
 	     	console.log("4. depositstore: " + depositstore);
 	     	var groupbal = groupbalRef.set(parseFloat(snapshot.val())+parseFloat(depositstore));
-	     	//window.location = './issues.html';	//this needs to be here or else the page switches before the data is stored in firebase D':
+	     	window.location = './issues.html';	//this needs to be here or else the page switches before the data is stored in firebase D':
 	     }, function (error) {
 	     	console.log("error");
 	     });

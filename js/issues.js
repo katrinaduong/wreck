@@ -42,7 +42,17 @@ $('#add-issue').click(function() {
 // autocomplete
 $(function() {
 	$("#roommate-tag").autocomplete({
-		source: usernames, minLength: 1
+		source: usernames, minLength: 1,
+    select: function (event, ui) {
+      $("#roommate-tag").val(ui.item.value);
+      return false;
+    },
+    messages: {
+      noResults: '',
+      results: function() {
+        console.log(this.results);
+      }
+  }
 	});
 });
 
@@ -93,12 +103,12 @@ $('#post').click(function() {
     var newPost =
     `<div class="issue">
       <div class="issue-date">${date}</div>
-      <div> ${tag} </div>
+      <div class="issue-tag">@${tag}</div>
       <label class="issue-content">${text}</label>
       <hr>
       <div class="issue-footer">
         <div class="issue-react-angry issue-button">
-          <button onclick="increment(this)" value="0">
+          <button id="issue-button-text" onclick="increment(this)" value="0">
             React 😠 <label class="angry-count"></label>
           </button>
         </div>
