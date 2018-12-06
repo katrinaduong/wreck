@@ -9,6 +9,8 @@ var months = ["January", "February", "March", "April", "May", "June", "July", "A
 
 $( document ).ready(function() {
 
+	$('#logout').click(logoutUser)
+
   //confirmation page
 	window.group_name = sessionStorage.getItem("groupkey");
   window.user_name = sessionStorage.getItem("namekey");
@@ -28,6 +30,16 @@ $( document ).ready(function() {
   $('#issues-title').html(window.group_name + '\'s Issues ')
 
 });
+
+// Login Existing User
+function logoutUser() {
+
+	firebase.auth().signOut().then(function() {
+	  console.log("Log out successful")
+	}, function(error) {
+	  console.log("Error: " + error);
+	});
+}
 
 $('#add-issue').click(function() {
   $("#new-issue-text").focus();
