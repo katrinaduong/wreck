@@ -272,10 +272,10 @@ function sendFirebaseGroup() {
 var data = {
     balance: window.deposit,
     email: emailstore,
-    group: user_entry,
+    group: groupstore,
 }
 var users = database.ref('users');
-var user = users.child(emailstore).set(data);
+var user = users.child(namestore).set(data);
 
 //add the group to firebase
 var groupdata = {
