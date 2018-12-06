@@ -124,6 +124,7 @@ $('#post').click(function() {
     </div>`
 
     $('#new-welcome').hide();
+		$('#dashboard').hide();
     $('#issues-container').prepend(newPost)
     $('#new-issue-text').val("")
     $('body').toggleClass("adding-issue")
@@ -145,8 +146,12 @@ $('#logout').click(function() {
 })
 
 function delete_issue(current) {
+	var topLevel = current.parentNode.parentNode.parentNode
 	var element = current.parentNode.parentNode;
 	element.remove();
+	if(!topLevel.hasChildNodes()) {
+		$('#dashboard').show()
+	}
 	// TODO3: delete from firebase
 }
 
