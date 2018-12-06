@@ -10,7 +10,7 @@ var months = ["January", "February", "March", "April", "May", "June", "July", "A
 $( document ).ready(function() {
 
 	$('#logout').click(logoutUser)
-
+	console.log("document ready")
   //confirmation page
 	window.group_name = sessionStorage.getItem("groupkey");
   window.user_name = sessionStorage.getItem("namekey");
@@ -161,16 +161,20 @@ function react(react) {
 }
 
 function updateBalances() {
+	console.log("updating balances")
 	var groupBalanceRef = firebase.database().ref('/groups/' + window.group_name +'/groupbalance')
 	var personalBalanceRef = firebase.database().ref('/users/' + window.user_name + '/balance')
 	var penaltyRef = firebase.database().ref('/groups/' + window.group_name +'/penalty')
 	groupBalanceRef.on('value', function(snapshot) {
+		console.log(snapshot.val())
 		window.group_balance = snapshot.val();
 	})
 	personalBalanceRef.on('value', function(snapshot) {
+		console.log(snapshot.val())
 		window.personal_balance = snapshot.val();
 	})
 	penaltyRef.on('value', function(snapshot) {
+		console.log(snapshot.val())
 		window.penalty_amount = snapshot.val();
 	})
 }

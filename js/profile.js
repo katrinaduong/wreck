@@ -163,10 +163,10 @@ function addGroup() {
 function addUserToGroup() {
 	console.log("adding user to group")
   //check to see if the group exists
-  var user_entry = $('#groupname').val();
+  var inputGroupName = $('#groupname').val();
   var found = false;
   for (var i = 0; i<window.groups.length; i++){
-  	if (user_entry == window.groups[i])
+  	if (inputGroupName == window.groups[i])
   		found = true;
   }
   if (!found) {
@@ -177,61 +177,43 @@ function addUserToGroup() {
 
     console.log("joining valid group")
     //get username
-    var usernamestore = sessionStorage.getItem("namekey");
+		window.group_name = inputGroupName
+		sessionStorage.setItem("groupkey", window.group_name);
+    window.user_name = sessionStorage.getItem("namekey");
     var emailstore = sessionStorage.getItem("emailkey");
     var depositstore = null;
-    console.log("user_entry:" + user_entry);
+    console.log("user_entry:" + window.group_name);
     //get deposit for user balance and to update groupbalance
-    var depositRef = firebase.database().ref('/groups/' + user_entry +'/deposit');
+    var depositRef = firebase.database().ref('/groups/' + window.group_name +'/deposit');
     depositRef.on('value', function(snapshot) {
-    	console.log("1. deposit\n" + snapshot.val());
     	depositstore = snapshot.val();
-    	     //add user to users
-	    //users
-	    //	username: usernamestore
-	    //		balance: depositstore
-        //      email: emailstore
-	    //		group: user_entry
-	    // var depositstore = sessionStorage.getItem("depositkey");
+			console.log("deposit" + depositstore)
+			console.log("email" + emailstore)
+			console.log("group" + window.group_name)
 	    var data = {
 	    	balance: depositstore,
-            email: emailstore,
-	    	group: user_entry,
+        email: emailstore,
+	    	group: window.group_name,
 	    }
 	    var users = database.ref('users');
-	    var user = users.child(usernamestore).set(data);
-	    console.log("2. user "+usernamestore+" added");
+	    var user = users.child(window.user_name).set(data);
 
-	     //change group balance
-	     //groups
-	     //	user_entry
-	     //		groupbalance: groupbalance + depositstore
-	     var groupbalRef = firebase.database().ref('/groups/' + user_entry + '/groupbalance');
-	     groupbalRef.once('value', function(snapshot) {
-	     	console.log("3. groupbalance: " + snapshot.val());
-	     	console.log("4. depositstore: " + depositstore);
-	     	var groupbal = groupbalRef.set(parseFloat(snapshot.val())+parseFloat(depositstore));
-	     	//window.location = './issues.html';	//this needs to be here or else the page switches before the data is stored in firebase D':
-	     }, function (error) {
-	     	console.log("error");
-	     });
-
-	 }, function (error) {
-	 	console.log("error");
-	 });
-
-     //add user to group
-     //groups
-     //	user_entry
-     //		users
-     //			usernamestore
-     var userRef = firebase.database().ref('/groups/' + user_entry + '/users/');
-     userRef.on('value', function(snapshot) {
-     	console.log("5. users\n" + snapshot.val());
-     	var user = userRef.child(usernamestore).set(usernamestore);
-     }, function (error) {
-     	console.log("error");
-     });
+			//add user to group
+      //groups
+      //	user_entry
+      //		users
+      //			usernamestore
+      var userRef = firebase.database().ref('/groups/' + window.group_name + '/users/');
+      userRef.on('value', function(snapshot) {
+      	console.log("5. users\n" + snapshot.val());
+      	var user = userRef.child(window.user_name).set(window.user_name);
+				window.location = './issues.html';	//this needs to be here or else the page switches before the data is stored in firebase D':
+      }, function (error) {
+      	console.log("error");
+      });
+		}, function (error) {
+  		console.log("error");
+  	});
  }
 }
 
@@ -296,6 +278,7 @@ function sendFirebaseGroup() {
 	var groups2 = database.ref('groups');
 	var group3 = groups2.child(groupstore).set(groupdata);
 
+	window.location = './issues.html'
   // Reload the data for the page
   function finished(err) {
   	if (err) {
