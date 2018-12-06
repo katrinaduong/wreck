@@ -11,8 +11,10 @@ $( document ).ready(function() {
 	$('#password').val("")
 	$('#password-confirm').val("")
 	$('#groupname').val("")
+	$('#sign-up-back').click(navigateHome)
 	$('#sign-up-start').click(navigateSignup)
 	$('#sign-up').click(createNewUser)
+	$('#login-back').click(navigateHome)
 	$('#login-start').click(navigateLogin)
 	$('#login').click(loginUser)
 	$('#continue1').click(addGroup)
@@ -48,6 +50,10 @@ $( document ).ready(function() {
     	}
 
 });
+
+function navigateHome() {
+	window.location = '../index.html'
+}
 
 function navigateSignup() {
 	window.location = './html/signup.html'
@@ -98,6 +104,10 @@ function loginUser() {
 
 	firebase.auth().signInWithEmailAndPassword(email, password)
 	.then(function() {
+		var username = getUsernameFromEmail(email)
+		var group = getGroupFromUsername(username)
+		sessionStorage.setItem("groupkey", group)
+		sessionStorage.setItem("namekey", username)
 		window.location = '../html/issues.html'
 	})
 	.catch(function(error) {
@@ -116,6 +126,17 @@ function loginUser() {
 
 	});
 
+}
+
+// TODO:
+function getUsernameFromEmail() {
+
+}
+
+// TODO:
+
+function getGroupFromUsername() {
+	
 }
 
 // Add just the groupname to firebase (for autocomplete)
