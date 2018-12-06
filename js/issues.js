@@ -60,9 +60,9 @@ $('#menu').click(function() {
   $('#sidebar').css("left", "0");
   $('#sidebar').css("transition", "1s");
   $('#dark-blur').css("visibility", "visible");
-  $('#group-balance').text("$" + parseFloat(group_balance).toFixed(2));
-  $('#personal-balance').text("$" + parseFloat(personal_balance).toFixed(2));
-  $('#penalty-balance').text("$" + parseFloat(penalty_amount).toFixed(2));
+  $('#group-balance').html("$" + parseFloat(group_balance).toFixed(2));
+  $('#personal-balance').html("$" + parseFloat(personal_balance).toFixed(2));
+  $('#penalty-balance').html("$" + parseFloat(penalty_amount).toFixed(2));
 });
 
 $('.close-sidebar').click(function() {
@@ -108,7 +108,7 @@ $('#post').click(function() {
       <hr>
       <div class="issue-footer">
         <div class="issue-react-angry issue-button">
-          <button id="issue-button-text" onclick="increment(this)" value="0">
+          <button id="issue-button-text" onclick="react(this)" value="0">
             React 😠 <label class="angry-count"></label>
           </button>
         </div>
@@ -136,7 +136,9 @@ $('#logout').click(function() {
 	});
 })
 
-function increment(react) {
+function react(react) {
+  var id = react.parentNode.parentNode.parentNode.getAttribute("class");
+  console.log(id)
   react.value = +react.value + 1
   react.innerText = "React 😠 (x" + react.value + ")"
   group_balance = group_balance + penalty_amount
