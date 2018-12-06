@@ -1,25 +1,21 @@
-
+// Globals
+var group_name = "Current Group"
+var user_name = "Current User"
 var usernames = [''];
-// $('.issue-button').click(function(){
-//   $(this).toggleClass('issue-button-clicked');
-// });
-var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-var personal_balance = 20.00
 var group_balance = 0.00
-var penalty_amount = 5.00
-
+var personal_balance = 0.00
+var penalty_amount = 0.00
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 $( document ).ready(function() {
 
   //confirmation page
-	var group = sessionStorage.getItem("groupkey");
-  var name = sessionStorage.getItem("namekey");
-	var deposit = sessionStorage.getItem("depositkey");
-	var penalty = sessionStorage.getItem("penaltykey");
-  console.log(group + " " + name + " " + deposit + " " + penalty)
+	window.group_name = sessionStorage.getItem("groupkey");
+  window.user_name = sessionStorage.getItem("namekey");
+	updateBalances()
 
   // Cache usernames
-  var ref = firebase.database().ref('/groups/' + group + '/users');
+  var ref = firebase.database().ref('/groups/' + window.group_name + '/users');
   ref.on("value", function(snapshot) {
   	for (var key in snapshot.val()) {
   		console.log(snapshot.val()[key]);
@@ -29,7 +25,7 @@ $( document ).ready(function() {
   	console.log("error");
   });
 
-  $('#issues-title').html(group + '\'s Issues ')
+  $('#issues-title').html(window.group_name + '\'s Issues ')
 
 });
 
@@ -60,9 +56,9 @@ $('#menu').click(function() {
   $('#sidebar').css("left", "0");
   $('#sidebar').css("transition", "1s");
   $('#dark-blur').css("visibility", "visible");
-  $('#group-balance').html("$" + parseFloat(group_balance).toFixed(2));
-  $('#personal-balance').html("$" + parseFloat(personal_balance).toFixed(2));
-  $('#penalty-balance').html("$" + parseFloat(penalty_amount).toFixed(2));
+  $('#group-balance').html("$" + parseFloat(window.group_balance).toFixed(2));
+  $('#personal-balance').html("$" + parseFloat(window.personal_balance).toFixed(2));
+  $('#penalty-balance').html("$" + parseFloat(window.penalty_amount).toFixed(2));
 });
 
 $('.close-sidebar').click(function() {
@@ -153,6 +149,43 @@ function react(react) {
   personal_balance = personal_balance - penalty_amount
 }
 
+function updateBalances() {
+	var groupBalanceRef = firebase.database().ref('/groups/' + window.group_name +'/groupbalance')
+	var personalBalanceRef = firebase.database().ref('/users/' + window.user_name + '/balance')
+	var penaltyRef = firebase.database().ref('/groups/' + window.group_name +'/penalty')
+	groupBalanceRef.on('value', function(snapshot) {
+		window.group_balance = snapshot.val();
+	})
+	personalBalanceRef.on('value', function(snapshot) {
+		window.personal_balance = snapshot.val();
+	})
+	penaltyRef.on('value', function(snapshot) {
+		window.penalty_amount = snapshot.val();
+	})
+}
+
+function onLoad() {
+	window.group_name = sessionStorage.getItem("groupkey");
+  window.user_name = sessionStorage.getItem("namekey");
+	updateBalances()
+  var firebaseRef = firebase.database().ref('/groups/' + window.group_name + '/posts/')
+  var issuesExist = false
+  // Recall database entries
+  firebaseRef.once("value", function(snapshot) {
+    snapshot.forEach(snap => {
+      issuesExist = true
+      $('#issues-container').prepend(snap.val().post)
+    })
+    if (issuesExist) {
+      $('#new-welcome').hide();
+    } else {
+      $('#new-welcome').show();
+    }
+  }, function(error) {
+    console.log("Error: " + error.code)
+  })
+}
+
 function getCurrentTime() {
   var d = new Date()
   var hours = d.getHours()
@@ -172,24 +205,4 @@ function getCurrentTime() {
   var date = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " "
     + hours + ":" + minutes + " " + time
   return date
-}
-
-function onLoad() {
-  var group = sessionStorage.getItem("groupkey");
-  var firebaseRef = firebase.database().ref('/groups/' + group + '/posts/')
-  var issuesExist = false
-  // Recall database entries
-  firebaseRef.once("value", function(snapshot) {
-    snapshot.forEach(snap => {
-      issuesExist = true
-      $('#issues-container').prepend(snap.val().post)
-    })
-    if (issuesExist) {
-      $('#new-welcome').hide();
-    } else {
-      $('#new-welcome').show();
-    }
-  }, function(error) {
-    console.log("Error: " + error.code)
-  })
 }
