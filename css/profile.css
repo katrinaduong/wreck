@@ -147,7 +147,11 @@ div.fields .text_field{
 
 }
 
-div.fields #search.text_field{
+#deposit.text_field{
+    width: 80%;
+}
+
+#penalty.text_field{
     width: 80%;
 }
 

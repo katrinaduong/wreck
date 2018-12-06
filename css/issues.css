@@ -121,7 +121,7 @@ body {
   margin-left: 5%;
   padding-top: 20px;
   width: 90%;
-  height: 350px;
+  height: 350;
   border-radius: 10px;
   box-shadow: 5px 3px 10px 1px rgba(120, 120, 120, 0.35);
   background-color: var(--blue-grey);
@@ -156,6 +156,21 @@ body {
   margin-left: 30px;
 }
 
+.issue-tag {
+  display: block;
+  height: 50px;
+  font-family: Avenir;
+  font-size: 40px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--very-light-pink);
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
 hr {
   margin-top: 10px;
   margin-bottom: 0px !important;
@@ -167,6 +182,10 @@ hr {
 
 .issue-button {
   margin-top: 5px;
+}
+
+#issue-button-text {
+  color: var(--very-light-pink);
 }
 
 .issue-react-angry {
@@ -186,6 +205,22 @@ hr {
   border-left-width: .5px;
 }
 
+#roommate-tag {
+  background: transparent;
+  border: none;
+  font-size: 40px;
+  width: 100%;
+  height: 60%;
+  font-family: Avenir;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--very-light-pink);
+  word-break: break-word;
+}
+
 #add-issue-modal {
   border-radius: 10px;
   box-shadow: 5px 3px 10px 1px rgba(120, 120, 120, 0.35);
@@ -194,7 +229,7 @@ hr {
   margin-right: 5%;
   margin-left: 5%;
   width: 90%;
-  height: 400px;
+  height: 520px;
   top: 300px;
   opacity: 0;
   pointer-events: none;
@@ -279,7 +314,7 @@ body {
 
 #nevermind {
   display: inline-block;
-  width: 40%;
+  width: 47%;
   height: 100%;
   border-radius: 10px;
   background-color: var(--very-light-pink);
@@ -292,13 +327,13 @@ body {
   letter-spacing: normal;
   text-align: center;
   color: var(--blue-grey);
-  padding: 5px;
-  margin-right: 30px;
+  padding: 20px 50px;
+  margin: 0px 1.5%;
 }
 
 #post {
   display: inline-block;
-  width: 40%;
+  width: 46%;
   height: 100%;
   border-radius: 10px;
   background-color: var(--very-light-pink);
@@ -311,7 +346,8 @@ body {
   letter-spacing: normal;
   text-align: center;
   color: var(--blue-grey);
-  padding: 5px;
+  padding: 20px 50px;
+  margin: 0px 1.5%;
 
 }
 
