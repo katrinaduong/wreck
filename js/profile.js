@@ -1,7 +1,7 @@
 database = firebase.database();
 // Glogbals
-var group_name = "Current Group"
-var user_name = "Current User"
+var group_name = ""
+var user_name = ""
 var groups = [''];
 var deposit = null;
 var penalty = null;
@@ -27,7 +27,6 @@ $( document ).ready(function() {
   //$('#join').click(updateData)
 
   //load groupnames that might be in firebase
-  console.log('fetch firebase groups');
   var ref = firebase.database().ref('/groupnames/');
   ref.on("value", function(snapshot) {
   	for (var key in snapshot.val()) {
@@ -44,7 +43,6 @@ $( document ).ready(function() {
 
     //if(groupstore != undefined && depositstore != undefined && penaltystore != undefined) {
     	if (window.group_name != null && window.deposit != null && window.penalty != null) {
-    		console.log("loading group/deposit/penalty");
     		document.getElementById("conf-group-name").innerHTML = window.group_name;
     		document.getElementById("conf-deposit").innerHTML = window.deposit;
     		document.getElementById("conf-penalty").innerHTML = window.penalty;
@@ -69,7 +67,6 @@ function navigateLogin() {
 
 // New User
 function createNewUser() {
-	console.log("creating new user")
 	var email = $('#email').val();
 	window.user_name = $('#username').val();
 	sessionStorage.setItem("emailkey", email);
@@ -108,11 +105,27 @@ function loginUser() {
 
 	firebase.auth().signInWithEmailAndPassword(email, password)
 	.then(function() {
-		setUsernameFromEmail(email)
-		setGroupFromUsername()
-		sessionStorage.setItem("groupkey", window.group_name)
-		sessionStorage.setItem("namekey", window.user_name)
-		window.location = '../html/issues.html'
+		var usersRef = firebase.database().ref('/users/')
+		usersRef.on("value", function(snapshot) {
+	  	for (var key in snapshot.val()) {
+	  		if (snapshot.val()[key]["email"] === email) {
+					// Retrieve the username from the email
+					window.user_name = key
+					var username = window.user_name
+					var groupRef = firebase.database().ref('/users/' + username + '/group')
+					groupRef.on('value', function(snapshot) {
+						// Retrieve the groupname from the username
+						window.group_name = snapshot.val();
+						sessionStorage.setItem("groupkey", window.group_name)
+						sessionStorage.setItem("namekey", window.user_name)
+						window.location = '../html/issues.html'
+					})
+
+				}
+	  	}
+	  }, function (error) {
+	  	console.log("error");
+	  });
 	})
 	.catch(function(error) {
 		var errorCode = error.code
@@ -132,29 +145,8 @@ function loginUser() {
 
 }
 
-function setUsernameFromEmail(email) {
-	var usersRef = firebase.database().ref('/users/')
-	usersRef.on("value", function(snapshot) {
-  	for (var key in snapshot.val()) {
-  		if (snapshot.val()[key]["email"] === email) {
-				window.user_name = key
-			}
-  	}
-  }, function (error) {
-  	console.log("error");
-  });
-}
-
-function setGroupFromUsername() {
-	var groupRef = firebase.database().ref('/users/' + window.user_name + '/group')
-	groupRef.on('value', function(snapshot) {
-		window.group_name = snapshot.val();
-	})
-}
-
 // Add just the groupname to firebase (for autocomplete)
 function addGroup() {
-	console.log("adding group")
 	window.group_name = $('#groupname').val();
 	sessionStorage.setItem("groupkey", window.group_name);
 	var groupnames = database.ref('groupnames');
@@ -164,8 +156,7 @@ function addGroup() {
 
 // Add user to existing group
 function addUserToGroup() {
-	console.log("adding user to group")
-  //check to see if the group exists
+  // Check to see if the group exists
   var inputGroupName = $('#groupname').val();
   var found = false;
   for (var i = 0; i<window.groups.length; i++){
@@ -177,22 +168,17 @@ function addUserToGroup() {
   } else {
     // TODO: valid group so do firebase hooking up to add this user to that group
     $('#not-group').css("visibility", "hidden"); // hide error message we have a valid group
-
-    console.log("joining valid group")
-    //get username
+    // Get username
 		window.group_name = inputGroupName
 		sessionStorage.setItem("groupkey", window.group_name);
     window.user_name = sessionStorage.getItem("namekey");
     var emailstore = sessionStorage.getItem("emailkey");
     var depositstore = null;
-    console.log("user_entry:" + window.group_name);
-    //get deposit for user balance and to update groupbalance
+
+    // Get deposit for user balance and to update groupbalance
     var depositRef = firebase.database().ref('/groups/' + window.group_name +'/deposit');
     depositRef.on('value', function(snapshot) {
     	depositstore = snapshot.val();
-			console.log("deposit" + depositstore)
-			console.log("email" + emailstore)
-			console.log("group" + window.group_name)
 	    var data = {
 	    	balance: depositstore,
         email: emailstore,
@@ -208,7 +194,6 @@ function addUserToGroup() {
       //			usernamestore
       var userRef = firebase.database().ref('/groups/' + window.group_name + '/users/');
       userRef.on('value', function(snapshot) {
-      	console.log("5. users\n" + snapshot.val());
       	var user = userRef.child(window.user_name).set(window.user_name);
 				window.location = './issues.html';	//this needs to be here or else the page switches before the data is stored in firebase D':
       }, function (error) {
@@ -248,7 +233,6 @@ function sendFirebaseNewUser() {
 }
 //create a new group and send all data to firebase
 function sendFirebaseGroup() {
-	console.log("sending to firebase");
 	window.deposit = $('#deposit').val();
 	window.penalty = $('#penalty').val();
 
@@ -285,7 +269,7 @@ function sendFirebaseGroup() {
   // Reload the data for the page
   function finished(err) {
   	if (err) {
-  		console.log("ooops, something went wrong.");
+  		console.log("Oops, something went wrong.");
   		console.log(err);
   	} else {
   		console.log('Data saved successfully');
