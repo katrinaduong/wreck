@@ -87,13 +87,6 @@ $("#new-issue-text").on('input',function(e){
   }
 });
 
-$('.close-issue').click(function(e) {
-  console.log("CLOSING ISSUE");
-  // e.preventDefault();
-  // console.log($(this).parent().parent().attr('class'));
-  // $(this).parent().parent().remove();
-});
-
 $('#post').click(function() {
   var date = getCurrentTime()
   var tag = $('#roommate-tag').val()
@@ -106,7 +99,7 @@ $('#post').click(function() {
     var newPost =
     `<div class="issue">
       <div class="issue-date">
-        <i class="fa fa-times w3-xxlarge close-issue"></i>
+        <i onclick="delete_issue(this)" class="fa fa-times w3-xxlarge close-issue"></i>
         ${date}
       </div>
       <div class="issue-tag">@${tag}</div>
@@ -141,6 +134,11 @@ $('#logout').click(function() {
   		alert("Can not sign out, please try again");
 	});
 })
+
+function delete_issue(current) {
+	var element = current.parentNode.parentNode;
+	element.remove();
+}
 
 function react(react) {
   var id = react.parentNode.parentNode.parentNode.getAttribute("class");
