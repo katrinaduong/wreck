@@ -271,7 +271,7 @@ function sendFirebaseGroup() {
 // var depositstore = sessionStorage.getItem("depositkey");
 var data = {
     balance: window.deposit,
-    email: emailkey,
+    email: emailstore,
     group: user_entry,
 }
 var users = database.ref('users');
