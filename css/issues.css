@@ -121,7 +121,7 @@ body {
   margin-left: 5%;
   padding-top: 20px;
   width: 90%;
-  height: 350px;
+  height: 420px;
   border-radius: 10px;
   box-shadow: 5px 3px 10px 1px rgba(120, 120, 120, 0.35);
   background-color: var(--blue-grey);
@@ -143,7 +143,7 @@ body {
 
 .issue-content {
   display: block;
-  height: 190px;
+  height: 210px;
   font-family: Avenir;
   font-size: 40px;
   font-weight: 200;
