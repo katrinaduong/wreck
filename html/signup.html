@@ -4,22 +4,29 @@
     <head>
         <meta charset="utf-8">
         <title>WRECK</title>
-        <link rel="stylesheet" href="./css/main.css">
+        <link rel="stylesheet" href="../css/main.css">
     </head>
     <body>
         <header class="container">
             <div class="logo_symbol">
-                    <img src="img/sword.png">
+                    <img src="../img/sword.png">
             </div>
         </header>
         <section class="login-box container">
             <div class="logo_tagline">
-                <img src="img/logo_tagline_black.png">
+                <img src="../img/logo_tagline_black.png">
+            </div>
+
+            <div class="fields">
+                <input type="text" class="text_field" id="username" placeholder="Username">
+                <input type="text" class="text_field" id="email" placeholder="Email Address">
+                <input type="password" class="text_field" id="password" placeholder="Password">
+                <input type="password" class="text_field" id="password-confirm" placeholder="Reenter Password">
             </div>
 
             <div class="login-buttons">
-                <button class="green-button" id="sign-up-start">Sign Up</button>
-                <button class="green-button" id="login-start">Log In</button>
+                <button class="green-button" id="sign-up-back">Go Back</button>
+                <button class="green-button" id="sign-up">Sign Up</button>
             </div>
         </section>
         <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
@@ -35,8 +42,8 @@
           };
           firebase.initializeApp(config);
         </script>
-        <script src="./jquery/js/jquery-1.9.0.min.js"></script>
-        <script src="./jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
-        <script src="./js/profile.js"></script>
+        <script src="../jquery/js/jquery-1.9.0.min.js"></script>
+        <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
+        <script src="../js/profile.js"></script>
     </body>
 </html>

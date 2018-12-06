@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="../css/issues.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/jquery-ui.css">
     </head>
     <body onload="onLoad()">
       <div id="page-container">
@@ -38,8 +40,13 @@
           <div id="add-issue-title">RAISE AN ISSUE</div>
           <i class="fa fa-times w3-xxxlarge close-button"></i>
         </div>
-        <textarea rows="5" cols="50" id="new-issue-text" type="text" name="new-issue" placeholder="Enter your message here" maxlength="144"></textarea> <br>
-        <p id="help-text" class="hidden">Message cannot be empty.</p>
+        <div class="fields">
+            <div class="text_field_wrapper"><input type="text" class="text_field" id="roommate-tag" placeholder="Tag a Roommate"></div>
+        </div>
+        <textarea rows="5" cols="50" id="new-issue-text" type="text" name="new-issue" placeholder="Enter your message here"></textarea> <br>
+        <div>
+          <p id="help-text" class="hidden">Message cannot be empty.</p>
+        </div>
         <div id="new-issue-footer">
           <div id="nevermind">Nevermind</div>
           <div id="post">Post</div>
@@ -62,11 +69,11 @@
           </div>
           <div class="status">
             <div class="sidebar-title">PERSONAL</div>
-            <div class="balance-value" id="personal-balance">$20.00</div>
+            <div class="balance-value" id="personal-balance"></div>
           </div>
           <div id="penalty" class="status">
             <div class="sidebar-title">PENALTY</div>
-            <div class="balance-value" id="penalty-balance">$5.00</div>
+            <div class="balance-value" id="penalty-balance"></div>
           </div>
         </div>
         <div id="logout" onClick="logout">Logout</div>

@@ -1,4 +1,5 @@
 
+var usernames = [''];
 // $('.issue-button').click(function(){
 //   $(this).toggleClass('issue-button-clicked');
 // });
@@ -7,19 +8,61 @@ var personal_balance = 20.00
 var group_balance = 0.00
 var penalty_amount = 5.00
 
+
+$( document ).ready(function() {
+
+  //confirmation page
+	var group = sessionStorage.getItem("groupkey");
+  var name = sessionStorage.getItem("namekey");
+	var deposit = sessionStorage.getItem("depositkey");
+	var penalty = sessionStorage.getItem("penaltykey");
+  console.log(group + " " + name + " " + deposit + " " + penalty)
+
+  // Cache usernames
+  var ref = firebase.database().ref('/groups/' + group + '/users');
+  ref.on("value", function(snapshot) {
+  	for (var key in snapshot.val()) {
+  		console.log(snapshot.val()[key]);
+  		window.usernames.push(snapshot.val()[key]);
+  	}
+  }, function (error) {
+  	console.log("error");
+  });
+
+  $('#issues-title').html(group + '\'s Issues ')
+
+});
+
 $('#add-issue').click(function() {
   $("#new-issue-text").focus();
   $("body").toggleClass("adding-issue");
   $("new-issue-text").focus();
 });
 
+// autocomplete
+$(function() {
+	$("#roommate-tag").autocomplete({
+		source: usernames, minLength: 1,
+    select: function (event, ui) {
+      $("#roommate-tag").val(ui.item.value);
+      return false;
+    },
+    messages: {
+      noResults: '',
+      results: function() {
+        console.log(this.results);
+      }
+  }
+	});
+});
+
 $('#menu').click(function() {
   $('#sidebar').css("left", "0");
   $('#sidebar').css("transition", "1s");
   $('#dark-blur').css("visibility", "visible");
-  $('#group-balance').text("$" + parseFloat(group_balance).toFixed(2));
-  $('#personal-balance').text("$" + parseFloat(personal_balance).toFixed(2));
-  $('#penalty-balance').text("$" + parseFloat(penalty_amount).toFixed(2));
+  $('#group-balance').html("$" + parseFloat(group_balance).toFixed(2));
+  $('#personal-balance').html("$" + parseFloat(personal_balance).toFixed(2));
+  $('#penalty-balance').html("$" + parseFloat(penalty_amount).toFixed(2));
 });
 
 $('.close-sidebar').click(function() {
@@ -57,6 +100,7 @@ $('.close-issue').click(function(e) {
 
 $('#post').click(function() {
   var date = getCurrentTime()
+  var tag = $('#roommate-tag').val()
   var text = $("#new-issue-text").val()
   if (text.length < 1) {
     if ($('#help-text').is(':hidden')) {
@@ -65,15 +109,13 @@ $('#post').click(function() {
   } else {
     var newPost =
     `<div class="issue">
-      <div class="issue-date">
-        <i class="fa fa-times w3-xxlarge close-issue"></i>
-        ${date}
-      </div>
+      <div class="issue-date">${date}</div>
+      <div class="issue-tag">@${tag}</div>
       <label class="issue-content">${text}</label>
       <hr>
       <div class="issue-footer">
         <div class="issue-react-angry issue-button">
-          <button onclick="increment(this)" value="0">
+          <button id="issue-button-text" onclick="react(this)" value="0">
             React 😠 <label class="angry-count"></label>
           </button>
         </div>
@@ -85,7 +127,8 @@ $('#post').click(function() {
     $('#new-issue-text').val("")
     $('body').toggleClass("adding-issue")
 
-    var firebaseRef = firebase.database().ref("posts/")
+    var group = sessionStorage.getItem("groupkey");
+    var firebaseRef = firebase.database().ref('/groups/' + group + '/posts')
     firebaseRef.push ({
         post: newPost
       })
@@ -100,7 +143,9 @@ $('#logout').click(function() {
 	});
 })
 
-function increment(react) {
+function react(react) {
+  var id = react.parentNode.parentNode.parentNode.getAttribute("class");
+  console.log(id)
   react.value = +react.value + 1
   react.innerText = "React 😠 (x" + react.value + ")"
   group_balance = group_balance + penalty_amount
@@ -129,7 +174,8 @@ function getCurrentTime() {
 }
 
 function onLoad() {
-  var firebaseRef = firebase.database().ref("posts/")
+  var group = sessionStorage.getItem("groupkey");
+  var firebaseRef = firebase.database().ref('/groups/' + group + '/posts/')
   var issuesExist = false
   // Recall database entries
   firebaseRef.once("value", function(snapshot) {
