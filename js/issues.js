@@ -4,9 +4,9 @@ var usernames = [''];
 //   $(this).toggleClass('issue-button-clicked');
 // });
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-var personal_balance = 20.00
+var personal_balance = 0.00
 var group_balance = 0.00
-var penalty_amount = 5.00
+var penalty_amount = 0.00
 
 
 $( document ).ready(function() {
@@ -60,9 +60,9 @@ $('#menu').click(function() {
   $('#sidebar').css("left", "0");
   $('#sidebar').css("transition", "1s");
   $('#dark-blur').css("visibility", "visible");
-  $('#group-balance').html("$" + parseFloat(group_balance).toFixed(2));
-  $('#personal-balance').html("$" + parseFloat(personal_balance).toFixed(2));
-  $('#penalty-balance').html("$" + parseFloat(penalty_amount).toFixed(2));
+  $('#group-balance').html("$" + parseFloat(window.group_balance).toFixed(2));
+  $('#personal-balance').html("$" + parseFloat(window.personal_balance).toFixed(2));
+  $('#penalty-balance').html("$" + parseFloat(window.penalty_amount).toFixed(2));
 });
 
 $('.close-sidebar').click(function() {
@@ -145,6 +145,39 @@ function react(react) {
   personal_balance = personal_balance - penalty_amount
 }
 
+function updateSideBar() {
+	var group = sessionStorage.getItem("groupkey")
+	var groupBalanceRef = firebase.database().ref('/groups/' + group +'/groupbalance')
+	var penaltyRef = firebase.database().ref('/groups/' + group +'/penalty')
+	groupBalanceRef.on('value', function(snapshot) {
+		window.group_balance = snapshot.val();
+	})
+	penaltyRef.on('value', function(snapshot) {
+		window.penalty_amount = snapshot.val();
+	})
+}
+
+function onLoad() {
+	updateSideBar()
+  var group = sessionStorage.getItem("groupkey");
+  var firebaseRef = firebase.database().ref('/groups/' + group + '/posts/')
+  var issuesExist = false
+  // Recall database entries
+  firebaseRef.once("value", function(snapshot) {
+    snapshot.forEach(snap => {
+      issuesExist = true
+      $('#issues-container').prepend(snap.val().post)
+    })
+    if (issuesExist) {
+      $('#new-welcome').hide();
+    } else {
+      $('#new-welcome').show();
+    }
+  }, function(error) {
+    console.log("Error: " + error.code)
+  })
+}
+
 function getCurrentTime() {
   var d = new Date()
   var hours = d.getHours()
@@ -164,24 +197,4 @@ function getCurrentTime() {
   var date = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " "
     + hours + ":" + minutes + " " + time
   return date
-}
-
-function onLoad() {
-  var group = sessionStorage.getItem("groupkey");
-  var firebaseRef = firebase.database().ref('/groups/' + group + '/posts/')
-  var issuesExist = false
-  // Recall database entries
-  firebaseRef.once("value", function(snapshot) {
-    snapshot.forEach(snap => {
-      issuesExist = true
-      $('#issues-container').prepend(snap.val().post)
-    })
-    if (issuesExist) {
-      $('#new-welcome').hide();
-    } else {
-      $('#new-welcome').show();
-    }
-  }, function(error) {
-    console.log("Error: " + error.code)
-  })
 }

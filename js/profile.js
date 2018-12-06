@@ -67,10 +67,10 @@ function navigateLogin() {
 function createNewUser() {
 	console.log("creating new user")
 	var email = $('#email').val();
-    sessionStorage.setItem("emailkey", email);
-	//var name = email.substring(0, email.lastIndexOf("@"));
 	var name = $('#username').val();
+	sessionStorage.setItem("emailkey", email);
 	sessionStorage.setItem("namekey", name);
+
 	const password = $('#password').val()
 	const passwordConfirm = $('#password-confirm').val()
 	if (password !== passwordConfirm) {
@@ -136,7 +136,7 @@ function getUsernameFromEmail() {
 // TODO:
 
 function getGroupFromUsername() {
-	
+
 }
 
 // Add just the groupname to firebase (for autocomplete)
@@ -175,8 +175,6 @@ function addUserToGroup() {
     var depositRef = firebase.database().ref('/groups/' + user_entry +'/deposit');
     depositRef.on('value', function(snapshot) {
     	console.log("1. deposit\n" + snapshot.val());
-    	//sessionStorage.setItem("depositkey", snapshot.val());
-    	//console.log(sessionStorage.getItem("depositkey"));
     	depositstore = snapshot.val();
     	     //add user to users
 	    //users
@@ -298,13 +296,13 @@ var group3 = groups2.child(groupstore).set(groupdata);
   }
 }
 
-function updateData() {
-	//TODO: update group balance, personal balance, and penalty
-	var num_roommates = 4;	//need to count roommates
-	console.log("in updateData");
-	if (window.deposit != null && window.penalty != null) {
-		document.getElementById("group-balance").innerHTML = window.deposit*num_roommates;
-	    document.getElementById("personal-balance").innerHTML = window.deposit;	//need to make this subtract penalties
-	    document.getElementById("penalty-balance").innerHTML = window.penalty;
-	}
-}
+// function updateData() {
+// 	//TODO: update group balance, personal balance, and penalty
+// 	var num_roommates = 4;	//need to count roommates
+// 	console.log("in updateData");
+// 	if (window.deposit != null && window.penalty != null) {
+// 		document.getElementById("group-balance").innerHTML = window.deposit*num_roommates;
+// 	    document.getElementById("personal-balance").innerHTML = window.deposit;	//need to make this subtract penalties
+// 	    document.getElementById("penalty-balance").innerHTML = window.penalty;
+// 	}
+// }
