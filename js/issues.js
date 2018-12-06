@@ -116,9 +116,10 @@ $('#post').click(function() {
       <hr>
       <div class="issue-footer">
         <div class="issue-react-angry issue-button">
-          <button id="issue-button-text" onclick="react(this)" value="0">
+          <button id="issue-button-text" onclick="react(this);" value="0">
             React 😠 <label class="angry-count"></label>
           </button>
+           <p id="noreact" class="hidden">You can't react to your own issue, silly!</p>
         </div>
       </div>
     </div>`
@@ -155,6 +156,10 @@ function delete_issue(current) {
 	// TODO3: delete from firebase
 }
 
+function fade_out() {
+  $("#noreact").fadeOut().empty();
+}
+
 function react(react) {
   //retrieve person tagged in issue
   var taggedName = "";
@@ -165,7 +170,9 @@ function react(react) {
   //make sure person isn't reacting to their own issue
   if (taggedName == window.user_name) {
     console.log("You can't react to your own issue, silly!");
-    //TODO1: some sort of visual feedback to the user
+    //feedback if a user tries to react to their own issue
+    $('#noreact').show();
+    setTimeout(fade_out, 2500);
   } else {
     //increase group balance by penalty_amount
 		window.group_balance = +window.group_balance + +window.penalty_amount;
