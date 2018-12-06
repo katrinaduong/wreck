@@ -33,7 +33,6 @@ $( document ).ready(function() {
 
 // Login Existing User
 function logoutUser() {
-
 	firebase.auth().signOut().then(function() {
 	  console.log("Log out successful")
 	}, function(error) {
