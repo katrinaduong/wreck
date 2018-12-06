@@ -53,14 +53,17 @@ $( document ).ready(function() {
 });
 
 function navigateHome() {
+	sessionStorage.clear()
 	window.location = '../index.html'
 }
 
 function navigateSignup() {
+	sessionStorage.clear()
 	window.location = './html/signup.html'
 }
 
 function navigateLogin() {
+	sessionStorage.clear()
 	window.location = './html/login.html'
 }
 

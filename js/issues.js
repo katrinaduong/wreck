@@ -149,48 +149,45 @@ $('#logout').click(function() {
 function delete_issue(current) {
 	var element = current.parentNode.parentNode;
 	element.remove();
+	// TODO3: delete from firebase
 }
 
 function react(react) {
   //retrieve person tagged in issue
-  var name = "";
+  var taggedName = "";
   var mess = react.parentNode.parentNode.parentNode.innerHTML;
   var start = mess.indexOf("@");
   var end = mess.indexOf("<", start);
-  var name = mess.substring(start+1, end);
-  console.log("name: " + name);
+  var taggedName = mess.substring(start+1, end);
+  console.log("name: " + taggedName);
   //make sure person isn't reacting to their own issue
-  if (name == window.user_name) {
+  if (taggedName == window.user_name) {
     console.log("You can't react to your own issue, silly!");
-    //TODO: some sort of visual feedback to the user
-  } else { 
+    //TODO1: some sort of visual feedback to the user
+  } else {
     //increase group balance by penalty_amount
+		window.group_balance = +window.group_balance + +window.penalty_amount;
 
-    var penaltyRef = firebase.database().ref('/groups/' + name +'/penalty');
-      penaltyRef.once('value', function(snapshot) {
-         window.penalty_amount = snapshot.val();
-         group_balance = group_balance + window.penalty_amount;
-        //reduce balance of tagged person by penalty_amount (unless it's already 0)
-        var personalBalanceRef = firebase.database().ref('/users/' + name + '/balance')
-          personalBalanceRef.once('value', function(snapshot) {
-          var issue_tag_bal = snapshot.val();
+    //reduce balance of tagged person by penalty_amount (unless it's already 0)
+    var taggedBalanceRef = firebase.database().ref('/users/' + taggedName + '/balance')
+    taggedBalanceRef.once('value', function(snapshot) {
+	  	var oldTaggedBalance = snapshot.val();
+	  	newTaggedBalance = +oldTaggedBalance - window.penalty_amount;
+	    if (newTaggedBalance < 0){
+	      newTaggedBalance = 0;
+	    }
 
-          console.log("balance before: " +issue_tag_bal);
-          console.log("penalty_amount: "+ window.penalty_amount);
-          issue_tag_bal = issue_tag_bal - window.penalty_amount;
-          //why is penalty NaN?
-
-          if (issue_tag_bal < 0){
-            issue_tag_bal = 0;
-          }
-          console.log("balance after: " +issue_tag_bal);
-          var new_bal = personalBalanceRef.set(issue_tag_bal);
-        })
+			// Update balances in firebase
+			var groupBalanceRef = firebase.database().ref('/groups/' + window.group_name + '/groupbalance')
+			groupBalanceRef.set(window.group_balance)
+      taggedBalanceRef.set(newTaggedBalance);
     })
-    
+
     //increment reacts and display
     react.value = +react.value + 1
     react.innerText = "React 😠 (x" + react.value + ")"
+
+		// TODO2: replace old post's html with new post's html (so that all users can see how many reacts)
   }
 }
 
