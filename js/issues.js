@@ -82,6 +82,7 @@ $('logout').click(function() {
 
 $('#nevermind, .close-button').click(function() {
   $('body').toggleClass("adding-issue");
+	$('#roommate-tag').val('');
   $("#new-issue-text").val('');
 });
 
@@ -127,6 +128,7 @@ $('#post').click(function() {
     $('#new-welcome').hide();
 		$('#dashboard').hide();
     $('#issues-container').prepend(newPost)
+		$('#roommate-tag').val('');
     $('#new-issue-text').val("")
     $('body').toggleClass("adding-issue")
 
@@ -149,11 +151,18 @@ $('#logout').click(function() {
 function delete_issue(current) {
 	var topLevel = current.parentNode.parentNode.parentNode
 	var element = current.parentNode.parentNode;
+
+	var postRef = firebase.database().ref('/groups/' + window.group_name + '/posts/')
+	var query = postRef.orderByChild("post").equalTo(current.parentNode.parentNode.outerHTML);
+	query.once("value", function(snapshot) {
+	  snapshot.forEach(function(child) {
+	   	child.getRef().child('/post').remove()
+		})
+	})
 	element.remove();
 	if(!topLevel.hasChildNodes()) {
 		$('#dashboard').show()
 	}
-	// TODO3: delete from firebase
 }
 
 function fade_out() {
@@ -192,11 +201,18 @@ function react(react) {
       taggedBalanceRef.set(newTaggedBalance);
     })
 
-    //increment reacts and display
-    react.value = +react.value + 1
-    react.innerText = "React 😠 (x" + react.value + ")"
+		var postRef = firebase.database().ref('/groups/' + window.group_name + '/posts/')
+		var query = postRef.orderByChild("post").equalTo(react.parentNode.parentNode.parentNode.outerHTML);
 
-		// TODO2: replace old post's html with new post's html (so that all users can see how many reacts)
+		query.once("value", function(snapshot) {
+		  snapshot.forEach(function(child) {
+				//increment reacts and display
+		    react.value = +react.value + 1
+		    react.innerText = "React 😠 (x" + react.value + ")"
+
+		   	child.getRef().child('/post').set(react.parentNode.parentNode.parentNode.outerHTML)
+			})
+		})
   }
 }
 
