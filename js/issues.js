@@ -109,7 +109,10 @@ $('#post').click(function() {
   } else {
     var newPost =
     `<div class="issue">
-      <div class="issue-date">${date}</div>
+      <div class="issue-date">
+        <i class="fa fa-times w3-xxlarge close-issue"></i>
+        ${date}
+      </div>
       <div class="issue-tag">@${tag}</div>
       <label class="issue-content">${text}</label>
       <hr>
