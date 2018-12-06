@@ -196,7 +196,6 @@ function addUserToGroup() {
 	    	group: window.group_name,
 	    }
 	    var users = database.ref('users');
-<<<<<<< HEAD
 	    var user = users.child(window.user_name).set(data);
 
 			//add user to group
@@ -215,41 +214,6 @@ function addUserToGroup() {
 		}, function (error) {
   		console.log("error");
   	});
-=======
-	    var user = users.child(usernamestore).set(data);
-	    console.log("2. user "+usernamestore+" added");
-
-	     //change group balance
-	     //groups
-	     //	user_entry
-	     //		groupbalance: groupbalance + depositstore
-	     var groupbalRef = firebase.database().ref('/groups/' + user_entry + '/groupbalance');
-	     groupbalRef.once('value', function(snapshot) {
-	     	console.log("3. groupbalance: " + snapshot.val());
-	     	console.log("4. depositstore: " + depositstore);
-	     	var groupbal = groupbalRef.set(parseFloat(snapshot.val())+parseFloat(depositstore));
-	     	window.location = './issues.html';	//this needs to be here or else the page switches before the data is stored in firebase D':
-	     }, function (error) {
-	     	console.log("error");
-	     });
-
-	 }, function (error) {
-	 	console.log("error");
-	 });
-
-     //add user to group
-     //groups
-     //	user_entry
-     //		users
-     //			usernamestore
-     var userRef = firebase.database().ref('/groups/' + user_entry + '/users/');
-     userRef.on('value', function(snapshot) {
-     	console.log("5. users\n" + snapshot.val());
-     	var user = userRef.child(usernamestore).set(usernamestore);
-     }, function (error) {
-     	console.log("error");
-     });
->>>>>>> 126bcf2c62b03f0ad28b242770a7ae3a7e33a444
  }
 }
 
