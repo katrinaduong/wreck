@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/jquery-ui.css">
+
     </head>
     <body onload="onLoad()">
       <div id="page-container">
@@ -32,9 +33,9 @@
           <h1 id="italic">Good job on resolving all the issues. You and your roommates are killing it!</h1>
         </div>
 
-        <div id="issues-container">
-        </div>
+        <div id="issues-container"></div>
       </div>
+
       <div id="add-issue-modal" class="modal fade">
         <div id="add-issue-header">
           <div id="add-issue-title">RAISE AN ISSUE</div>
@@ -43,7 +44,7 @@
         <div class="fields">
             <div class="text_field_wrapper"><input type="text" class="text_field" id="roommate-tag" placeholder="Tag a Roommate"></div>
         </div>
-        <textarea rows="5" cols="50" id="new-issue-text" type="text" name="new-issue" placeholder="Enter your message here" maxlength="144"></textarea> <br>
+        <textarea rows="5" cols="50" id="new-issue-text" type="text" name="new-issue" placeholder="Enter your message here" maxlength="195"></textarea> <br>
         <div>
           <p id="help-text" class="hidden">Message cannot be empty.</p>
         </div>
@@ -61,7 +62,7 @@
           <img class="wreck" src="../img/sidebar-title.png">
         </div>
         <!-- TODO: pull balances from firebase -->
-        <div id="user-status">
+        < <div id="user-status">
           <div id="user-status-heading">Balances at a glance</div>
           <div class="status">
             <div class="sidebar-title">GROUP</div>
