@@ -140,7 +140,6 @@ $('#logout').click(function() {
 })
 
 function delete_issue(current) {
-	console.log("CLOSING ISSUE");
 	var element = current.parentNode.parentNode;
 	element.remove();
 }
