@@ -61,6 +61,7 @@ function navigateLogin() {
 function createNewUser() {
 	console.log("creating new user")
 	var email = $('#email').val();
+    sessionStorage.setItem("emailkey", email);
 	//var name = email.substring(0, email.lastIndexOf("@"));
 	var name = $('#username').val();
 	sessionStorage.setItem("namekey", name);
@@ -146,6 +147,7 @@ function addUserToGroup() {
     console.log("joining valid group")
     //get username
     var usernamestore = sessionStorage.getItem("namekey");
+    var emailstore = sessionStorage.getItem("emailkey");
     var depositstore = null;
     console.log("user_entry:" + user_entry);
     //get deposit for user balance and to update groupbalance
@@ -159,15 +161,17 @@ function addUserToGroup() {
 	    //users
 	    //	username: usernamestore
 	    //		balance: depositstore
+        //      email: emailstore
 	    //		group: user_entry
 	    // var depositstore = sessionStorage.getItem("depositkey");
 	    var data = {
 	    	balance: depositstore,
+            email: emailstore,
 	    	group: user_entry,
 	    }
 	    var users = database.ref('users');
 	    var user = users.child(usernamestore).set(data);
-	    console.log("2. user "+usernamestore+" added")
+	    console.log("2. user "+usernamestore+" added");
 
 	     //change group balance
 	     //groups
@@ -236,15 +240,21 @@ function sendFirebaseGroup() {
 
 	var namestore = sessionStorage.getItem("namekey");
 	var groupstore = sessionStorage.getItem("groupkey");
+    var emailstore = sessionStorage.getItem("emailkey");
 
-//add the user to firebase
+ //users
+//  username: usernamestore
+//      balance: depositstore
+//      email: emailstore
+//      group: user_entry
+// var depositstore = sessionStorage.getItem("depositkey");
 var data = {
-	balance: window.deposit,
-	group: groupstore,
+    balance: window.deposit,
+    email: emailkey,
+    group: user_entry,
 }
-
 var users = database.ref('users');
-var user = users.child(namestore).set(data);
+var user = users.child(emailstore).set(data);
 
 //add the group to firebase
 var groupdata = {
