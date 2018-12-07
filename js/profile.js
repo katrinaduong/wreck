@@ -121,6 +121,8 @@ function loginUser() {
 						window.location = '../html/issues.html'
 					})
 
+				} else {
+					console.log("not a user")
 				}
 	  	}
 	  }, function (error) {
