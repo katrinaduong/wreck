@@ -40,10 +40,11 @@ body {
 }
 
 #help-text {
-  color: red;
+  color: #E78787;
   font-size: 25px;
   position: absolute;
-  top: 230px;
+  top: 330px;
+  left: 30px;
 }
 
 #new-welcome {
